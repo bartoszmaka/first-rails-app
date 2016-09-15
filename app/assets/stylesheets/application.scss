@@ -13,3 +13,29 @@
  *= require_tree .
  *= require_self
  */
+
+body{
+    background: darkgray;
+}
+h1{
+    color:black;
+    font-family: 'Georgia'
+}
+table{
+    color:lightgray;
+}
+th{
+    background:#333333;
+}
+tr{
+    background:#525252;
+}
+tr:nth-child(even){
+    background:#444444;
+}
+tr:hover{
+    transition-duration:500ms;
+}
+a{
+    color:black
+}
