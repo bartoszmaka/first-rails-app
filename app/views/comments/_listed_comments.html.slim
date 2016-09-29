@@ -1,0 +1,4 @@
+- @article.comments.each do |comment|
+  p = comment.author
+  p = comment.content
+  = link_to 'Delete Comment', article_comment_path(@article, comment), method: :delete

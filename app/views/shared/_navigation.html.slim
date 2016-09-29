@@ -1,0 +1,7 @@
+  table
+    tr
+      td
+        => link_to 'Home', root_path
+        => link_to 'List of Articles', articles_path
+        => link_to 'New Article', new_article_path
+        => link_to 'Random Article', article_path(Article.all.sample)
