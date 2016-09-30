@@ -5,6 +5,8 @@ p = @article.content
 h3 Comments:
 = render 'comments/listed_comments'
 h4 Actions:
+= link_to 'Create Comment', new_article_comment_path(@article)
+br
 = link_to 'Comments', article_comments_path(@article)
 br
 = link_to 'Edit', edit_article_path

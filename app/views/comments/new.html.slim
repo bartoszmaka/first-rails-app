@@ -1,0 +1,10 @@
+h1 New Comment
+= render 'shared/navigation'
+= form_for [@article, @comment] do |f|
+  - if @article.errors.any?
+    p oops, something were wrong
+  p = f.label :author
+  = f.text_field :author
+  p = f.label :content
+  = f.text_area :content, size: "60x12"
+  br = f.submit
