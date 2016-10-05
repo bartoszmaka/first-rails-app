@@ -1,6 +1,6 @@
 = form_for ([@article, @comment]) do |f|
   - if @comment.errors.any?
-    p oops, something were wrong
+    = render 'form_errors'
   p = f.label :author
   = f.text_field :author
   p = f.label :content
