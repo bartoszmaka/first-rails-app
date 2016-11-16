@@ -4,7 +4,12 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article = Article.find(params[:id])
+    if params[:random]
+      @article = Article.rnd
+      redirect_to @article
+    else
+      @article = Article.find(params[:id])
+    end
   end
 
   def new

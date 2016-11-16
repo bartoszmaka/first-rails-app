@@ -1,0 +1,112 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+/* mixins, variables, etc. */
+
+$gray-medium-light: #eaeaea;
+
+@mixin box_sizing {
+  -moz-box-sizing:  border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:       border-box;
+}
+
+body {
+  background: darkgray;
+}
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+}
+
+h1 {
+  font-size: 3em;
+  letter-spacing: -2px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.2em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: normal;
+  color: $gray-light;
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.7em;
+}
+a {
+  color: lightblue;
+}
+table {
+  margin: auto;
+  width: 95%;
+  color:lightgray;
+  th {
+    text-indent: 10px;
+    background:#333333;
+  }
+  tr {
+    background:#525252;
+    td {
+      text-indent: 15px;
+    }
+    &:nth-child(even) {
+      background:#444444;
+    }
+    &:hover {
+      transition-duration:500ms;
+    }
+  }
+}
+
+.comment {
+  margin-left: 5%;
+  margin-right: 15%;
+  &:nth-child(even) {
+    background: gray;
+  }
+}
+
+.debug_dump {
+  clear: both;
+  float: left;
+  margin-left: 20%;
+  margin-right: 20%;
+  width: 60%;
+  margin-top: 45px;
+  @include box_sizing;
+}
+
+form {
+  margin-left: 5%;
+}
+
+input, textarea, select, .uneditable-input {
+  border: 1px solid #bbb;
+  margin-bottom: 15px;
+  @include box_sizing;
+}
+
+input {
+  height: auto !important;
+}

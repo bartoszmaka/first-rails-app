@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :articles do
     resources :comments
   end
+  # get '/articles/search', to: 'articles#search', as: 'article_search'
   # get '/articles/:id', to: 'articles#random', as: 'random_article'
   # get '/articles', to: 'articles#index'
   # get '/articles/:id', to: 'articles#show', as: 'article'
