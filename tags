@@ -28,11 +28,17 @@
 ?	/home/bartosz/.vimrc	/^    map ?  <Plug>(incsearch-backward)$/;"	m	language:Vim
 Ag	/home/bartosz/.vimrc	/^    command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!$/;"	c	language:Vim
 Article	/home/bartosz/Programy/blog/app/models/article.rb	/^class Article < ApplicationRecord$/;"	c	language:Ruby
+Article	/home/bartosz/Programy/first_rails_app/app/models/article.rb	/^class Article < ApplicationRecord$/;"	c	language:Ruby
 ArticlesController	/home/bartosz/Programy/blog/app/controllers/articles_controller.rb	/^class ArticlesController < ApplicationController$/;"	c	language:Ruby
+ArticlesController	/home/bartosz/Programy/first_rails_app/app/controllers/articles_controller.rb	/^class ArticlesController < ApplicationController$/;"	c	language:Ruby
 article_params	/home/bartosz/Programy/blog/app/controllers/articles_controller.rb	/^  def article_params$/;"	f	language:Ruby	class:ArticlesController
+article_params	/home/bartosz/Programy/first_rails_app/app/controllers/articles_controller.rb	/^  def article_params$/;"	f	language:Ruby	class:ArticlesController
 create	/home/bartosz/Programy/blog/app/controllers/articles_controller.rb	/^  def create$/;"	f	language:Ruby	class:ArticlesController
+create	/home/bartosz/Programy/first_rails_app/app/controllers/articles_controller.rb	/^  def create$/;"	f	language:Ruby	class:ArticlesController
 destroy	/home/bartosz/Programy/blog/app/controllers/articles_controller.rb	/^  def destroy$/;"	f	language:Ruby	class:ArticlesController
+destroy	/home/bartosz/Programy/first_rails_app/app/controllers/articles_controller.rb	/^  def destroy$/;"	f	language:Ruby	class:ArticlesController
 edit	/home/bartosz/Programy/blog/app/controllers/articles_controller.rb	/^  def edit$/;"	f	language:Ruby	class:ArticlesController
+edit	/home/bartosz/Programy/first_rails_app/app/controllers/articles_controller.rb	/^  def edit$/;"	f	language:Ruby	class:ArticlesController
 g#	/home/bartosz/.vimrc	/^    map g# <Plug>(incsearch-nohl-g#)$/;"	m	language:Vim
 g*	/home/bartosz/.vimrc	/^    map g* <Plug>(incsearch-nohl-g*)$/;"	m	language:Vim
 g/	/home/bartosz/.vimrc	/^    map g\/ <Plug>(incsearch-stay)$/;"	m	language:Vim
@@ -70,6 +76,7 @@ g:ycm_key_list_select_completion	/home/bartosz/.vimrc	/^    let g:ycm_key_list_s
 g:ycm_path_to_python_interpreter	/home/bartosz/.vimrc	/^    let g:ycm_path_to_python_interpreter = '\/usr\/bin\/python3'$/;"	v	language:Vim
 gW	/home/bartosz/.vimrc	/^    nmap gW :tabclose<CR>$/;"	m	language:Vim
 index	/home/bartosz/Programy/blog/app/controllers/articles_controller.rb	/^  def index$/;"	f	language:Ruby	class:ArticlesController
+index	/home/bartosz/Programy/first_rails_app/app/controllers/articles_controller.rb	/^  def index$/;"	f	language:Ruby	class:ArticlesController
 mapleader	/home/bartosz/.vimrc	/^let mapleader = "'"$/;"	v	language:Vim
 MoveLineDown	/home/bartosz/.vimrc	/^    function! MoveLineDown()$/;"	f	language:Vim
 MoveLineOrVisualDown	/home/bartosz/.vimrc	/^    function! MoveLineOrVisualDown(line_getter, range)$/;"	f	language:Vim
@@ -81,8 +88,11 @@ MoveVisualUp	/home/bartosz/.vimrc	/^    function! MoveVisualUp()$/;"	f	language:
 n	/home/bartosz/.vimrc	/^    map n  <Plug>(incsearch-nohl-n)$/;"	m	language:Vim
 N	/home/bartosz/.vimrc	/^    map N  <Plug>(incsearch-nohl-N)$/;"	m	language:Vim
 new	/home/bartosz/Programy/blog/app/controllers/articles_controller.rb	/^  def new$/;"	f	language:Ruby	class:ArticlesController
+new	/home/bartosz/Programy/first_rails_app/app/controllers/articles_controller.rb	/^  def new$/;"	f	language:Ruby	class:ArticlesController
 NumberToggle	/home/bartosz/.vimrc	/^    function! NumberToggle()$/;"	f	language:Vim
 show	/home/bartosz/Programy/blog/app/controllers/articles_controller.rb	/^  def show$/;"	f	language:Ruby	class:ArticlesController
+show	/home/bartosz/Programy/first_rails_app/app/controllers/articles_controller.rb	/^  def show$/;"	f	language:Ruby	class:ArticlesController
 test#strategy	/home/bartosz/.vimrc	/^        let test#strategy = 'neoterm'$/;"	v	language:Vim
 update	/home/bartosz/Programy/blog/app/controllers/articles_controller.rb	/^  def update$/;"	f	language:Ruby	class:ArticlesController
+update	/home/bartosz/Programy/first_rails_app/app/controllers/articles_controller.rb	/^  def update$/;"	f	language:Ruby	class:ArticlesController
 vimrc	/home/bartosz/.vimrc	/^    augroup vimrc-remember-cursor-position$/;"	a	language:Vim

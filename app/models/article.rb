@@ -4,7 +4,10 @@ class Article < ApplicationRecord
   validates :content, presence: true, length: { minimum: 5 }
   scope :rnd, -> { order('RANDOM()').first }
 
-  # def self.random_article
-  #   Article.order('RANDOM()').first
+  # def self.random
+  #   range_min = Article.first.id
+  #   range_max = Article.last.id
+  #   article = Article.find_by(id: rand(range_min..range_max)) while article.nil?
+  #   article
   # end
 end
