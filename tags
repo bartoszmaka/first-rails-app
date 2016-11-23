@@ -26,6 +26,7 @@
 <leader>t	/home/bartosz/.vimrc	/^        nmap <silent> <leader>t :TestNearest<CR>$/;"	m	language:Vim
 <leader>y	/home/bartosz/.vimrc	/^    noremap <leader>y "+y<CR>$/;"	m	language:Vim
 ?	/home/bartosz/.vimrc	/^    map ?  <Plug>(incsearch-backward)$/;"	m	language:Vim
+AddNumberOfCommentsToArticle	/home/bartosz/Programy/first_rails_app/db/migrate/20161121213600_add_number_of_comments_to_article.rb	/^class AddNumberOfCommentsToArticle < ActiveRecord::Migration[5.0]$/;"	c	language:Ruby
 Ag	/home/bartosz/.vimrc	/^    command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!$/;"	c	language:Vim
 Article	/home/bartosz/Programy/blog/app/models/article.rb	/^class Article < ApplicationRecord$/;"	c	language:Ruby
 Article	/home/bartosz/Programy/first_rails_app/app/models/article.rb	/^class Article < ApplicationRecord$/;"	c	language:Ruby
@@ -33,6 +34,8 @@ ArticlesController	/home/bartosz/Programy/blog/app/controllers/articles_controll
 ArticlesController	/home/bartosz/Programy/first_rails_app/app/controllers/articles_controller.rb	/^class ArticlesController < ApplicationController$/;"	c	language:Ruby
 article_params	/home/bartosz/Programy/blog/app/controllers/articles_controller.rb	/^  def article_params$/;"	f	language:Ruby	class:ArticlesController
 article_params	/home/bartosz/Programy/first_rails_app/app/controllers/articles_controller.rb	/^  def article_params$/;"	f	language:Ruby	class:ArticlesController
+change	/home/bartosz/Programy/first_rails_app/db/migrate/20161121213600_add_number_of_comments_to_article.rb	/^  def change$/;"	f	language:Ruby	class:AddNumberOfCommentsToArticle
+Comment	/home/bartosz/Programy/first_rails_app/app/models/comment.rb	/^class Comment < ApplicationRecord$/;"	c	language:Ruby
 create	/home/bartosz/Programy/blog/app/controllers/articles_controller.rb	/^  def create$/;"	f	language:Ruby	class:ArticlesController
 create	/home/bartosz/Programy/first_rails_app/app/controllers/articles_controller.rb	/^  def create$/;"	f	language:Ruby	class:ArticlesController
 destroy	/home/bartosz/Programy/blog/app/controllers/articles_controller.rb	/^  def destroy$/;"	f	language:Ruby	class:ArticlesController
