@@ -26,7 +26,7 @@
 <leader>t	/home/bartosz/.vimrc	/^        nmap <silent> <leader>t :TestNearest<CR>$/;"	m	language:Vim
 <leader>y	/home/bartosz/.vimrc	/^    noremap <leader>y "+y<CR>$/;"	m	language:Vim
 ?	/home/bartosz/.vimrc	/^    map ?  <Plug>(incsearch-backward)$/;"	m	language:Vim
-AddNumberOfCommentsToArticle	/home/bartosz/Programy/first_rails_app/db/migrate/20161121213600_add_number_of_comments_to_article.rb	/^class AddNumberOfCommentsToArticle < ActiveRecord::Migration[5.0]$/;"	c	language:Ruby
+AddCommentsCountToArticles	/home/bartosz/Programy/first_rails_app/db/migrate/20161123123554_add_comments_count_to_articles.rb	/^class AddCommentsCountToArticles < ActiveRecord::Migration[5.0]$/;"	c	language:Ruby
 Ag	/home/bartosz/.vimrc	/^    command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!$/;"	c	language:Vim
 Article	/home/bartosz/Programy/blog/app/models/article.rb	/^class Article < ApplicationRecord$/;"	c	language:Ruby
 Article	/home/bartosz/Programy/first_rails_app/app/models/article.rb	/^class Article < ApplicationRecord$/;"	c	language:Ruby
@@ -34,14 +34,19 @@ ArticlesController	/home/bartosz/Programy/blog/app/controllers/articles_controll
 ArticlesController	/home/bartosz/Programy/first_rails_app/app/controllers/articles_controller.rb	/^class ArticlesController < ApplicationController$/;"	c	language:Ruby
 article_params	/home/bartosz/Programy/blog/app/controllers/articles_controller.rb	/^  def article_params$/;"	f	language:Ruby	class:ArticlesController
 article_params	/home/bartosz/Programy/first_rails_app/app/controllers/articles_controller.rb	/^  def article_params$/;"	f	language:Ruby	class:ArticlesController
-change	/home/bartosz/Programy/first_rails_app/db/migrate/20161121213600_add_number_of_comments_to_article.rb	/^  def change$/;"	f	language:Ruby	class:AddNumberOfCommentsToArticle
+change	/home/bartosz/Programy/first_rails_app/db/migrate/20161123123554_add_comments_count_to_articles.rb	/^  def change$/;"	f	language:Ruby	class:AddCommentsCountToArticles
 Comment	/home/bartosz/Programy/first_rails_app/app/models/comment.rb	/^class Comment < ApplicationRecord$/;"	c	language:Ruby
+CommentsController	/home/bartosz/Programy/first_rails_app/app/controllers/comments_controller.rb	/^class CommentsController < ApplicationController$/;"	c	language:Ruby
+comment_params	/home/bartosz/Programy/first_rails_app/app/controllers/comments_controller.rb	/^  def comment_params$/;"	f	language:Ruby	class:CommentsController
 create	/home/bartosz/Programy/blog/app/controllers/articles_controller.rb	/^  def create$/;"	f	language:Ruby	class:ArticlesController
 create	/home/bartosz/Programy/first_rails_app/app/controllers/articles_controller.rb	/^  def create$/;"	f	language:Ruby	class:ArticlesController
+create	/home/bartosz/Programy/first_rails_app/app/controllers/comments_controller.rb	/^  def create$/;"	f	language:Ruby	class:CommentsController
 destroy	/home/bartosz/Programy/blog/app/controllers/articles_controller.rb	/^  def destroy$/;"	f	language:Ruby	class:ArticlesController
 destroy	/home/bartosz/Programy/first_rails_app/app/controllers/articles_controller.rb	/^  def destroy$/;"	f	language:Ruby	class:ArticlesController
+destroy	/home/bartosz/Programy/first_rails_app/app/controllers/comments_controller.rb	/^  def destroy$/;"	f	language:Ruby	class:CommentsController
 edit	/home/bartosz/Programy/blog/app/controllers/articles_controller.rb	/^  def edit$/;"	f	language:Ruby	class:ArticlesController
 edit	/home/bartosz/Programy/first_rails_app/app/controllers/articles_controller.rb	/^  def edit$/;"	f	language:Ruby	class:ArticlesController
+edit	/home/bartosz/Programy/first_rails_app/app/controllers/comments_controller.rb	/^  def edit$/;"	f	language:Ruby	class:CommentsController
 g#	/home/bartosz/.vimrc	/^    map g# <Plug>(incsearch-nohl-g#)$/;"	m	language:Vim
 g*	/home/bartosz/.vimrc	/^    map g* <Plug>(incsearch-nohl-g*)$/;"	m	language:Vim
 g/	/home/bartosz/.vimrc	/^    map g\/ <Plug>(incsearch-stay)$/;"	m	language:Vim
@@ -80,6 +85,7 @@ g:ycm_path_to_python_interpreter	/home/bartosz/.vimrc	/^    let g:ycm_path_to_py
 gW	/home/bartosz/.vimrc	/^    nmap gW :tabclose<CR>$/;"	m	language:Vim
 index	/home/bartosz/Programy/blog/app/controllers/articles_controller.rb	/^  def index$/;"	f	language:Ruby	class:ArticlesController
 index	/home/bartosz/Programy/first_rails_app/app/controllers/articles_controller.rb	/^  def index$/;"	f	language:Ruby	class:ArticlesController
+index	/home/bartosz/Programy/first_rails_app/app/controllers/comments_controller.rb	/^  def index$/;"	f	language:Ruby	class:CommentsController
 mapleader	/home/bartosz/.vimrc	/^let mapleader = "'"$/;"	v	language:Vim
 MoveLineDown	/home/bartosz/.vimrc	/^    function! MoveLineDown()$/;"	f	language:Vim
 MoveLineOrVisualDown	/home/bartosz/.vimrc	/^    function! MoveLineOrVisualDown(line_getter, range)$/;"	f	language:Vim
@@ -92,10 +98,12 @@ n	/home/bartosz/.vimrc	/^    map n  <Plug>(incsearch-nohl-n)$/;"	m	language:Vim
 N	/home/bartosz/.vimrc	/^    map N  <Plug>(incsearch-nohl-N)$/;"	m	language:Vim
 new	/home/bartosz/Programy/blog/app/controllers/articles_controller.rb	/^  def new$/;"	f	language:Ruby	class:ArticlesController
 new	/home/bartosz/Programy/first_rails_app/app/controllers/articles_controller.rb	/^  def new$/;"	f	language:Ruby	class:ArticlesController
+new	/home/bartosz/Programy/first_rails_app/app/controllers/comments_controller.rb	/^  def new$/;"	f	language:Ruby	class:CommentsController
 NumberToggle	/home/bartosz/.vimrc	/^    function! NumberToggle()$/;"	f	language:Vim
 show	/home/bartosz/Programy/blog/app/controllers/articles_controller.rb	/^  def show$/;"	f	language:Ruby	class:ArticlesController
 show	/home/bartosz/Programy/first_rails_app/app/controllers/articles_controller.rb	/^  def show$/;"	f	language:Ruby	class:ArticlesController
 test#strategy	/home/bartosz/.vimrc	/^        let test#strategy = 'neoterm'$/;"	v	language:Vim
 update	/home/bartosz/Programy/blog/app/controllers/articles_controller.rb	/^  def update$/;"	f	language:Ruby	class:ArticlesController
 update	/home/bartosz/Programy/first_rails_app/app/controllers/articles_controller.rb	/^  def update$/;"	f	language:Ruby	class:ArticlesController
+update	/home/bartosz/Programy/first_rails_app/app/controllers/comments_controller.rb	/^  def update$/;"	f	language:Ruby	class:CommentsController
 vimrc	/home/bartosz/.vimrc	/^    augroup vimrc-remember-cursor-position$/;"	a	language:Vim
