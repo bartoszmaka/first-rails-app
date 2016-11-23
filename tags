@@ -26,12 +26,14 @@
 <leader>t	/home/bartosz/.vimrc	/^        nmap <silent> <leader>t :TestNearest<CR>$/;"	m	language:Vim
 <leader>y	/home/bartosz/.vimrc	/^    noremap <leader>y "+y<CR>$/;"	m	language:Vim
 ?	/home/bartosz/.vimrc	/^    map ?  <Plug>(incsearch-backward)$/;"	m	language:Vim
+ActiveSupport	/home/bartosz/Programy/first_rails_app/test/test_helper.rb	/^class ActiveSupport::TestCase$/;"	c	language:Ruby
 AddCommentsCountToArticles	/home/bartosz/Programy/first_rails_app/db/migrate/20161123123554_add_comments_count_to_articles.rb	/^class AddCommentsCountToArticles < ActiveRecord::Migration[5.0]$/;"	c	language:Ruby
 Ag	/home/bartosz/.vimrc	/^    command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!$/;"	c	language:Vim
 Article	/home/bartosz/Programy/blog/app/models/article.rb	/^class Article < ApplicationRecord$/;"	c	language:Ruby
 Article	/home/bartosz/Programy/first_rails_app/app/models/article.rb	/^class Article < ApplicationRecord$/;"	c	language:Ruby
 ArticlesController	/home/bartosz/Programy/blog/app/controllers/articles_controller.rb	/^class ArticlesController < ApplicationController$/;"	c	language:Ruby
 ArticlesController	/home/bartosz/Programy/first_rails_app/app/controllers/articles_controller.rb	/^class ArticlesController < ApplicationController$/;"	c	language:Ruby
+ArticleTest	/home/bartosz/Programy/first_rails_app/test/models/article_test.rb	/^class ArticleTest < ActiveSupport::TestCase$/;"	c	language:Ruby
 article_params	/home/bartosz/Programy/blog/app/controllers/articles_controller.rb	/^  def article_params$/;"	f	language:Ruby	class:ArticlesController
 article_params	/home/bartosz/Programy/first_rails_app/app/controllers/articles_controller.rb	/^  def article_params$/;"	f	language:Ruby	class:ArticlesController
 change	/home/bartosz/Programy/first_rails_app/db/migrate/20161123123554_add_comments_count_to_articles.rb	/^  def change$/;"	f	language:Ruby	class:AddCommentsCountToArticles
@@ -100,6 +102,7 @@ new	/home/bartosz/Programy/blog/app/controllers/articles_controller.rb	/^  def n
 new	/home/bartosz/Programy/first_rails_app/app/controllers/articles_controller.rb	/^  def new$/;"	f	language:Ruby	class:ArticlesController
 new	/home/bartosz/Programy/first_rails_app/app/controllers/comments_controller.rb	/^  def new$/;"	f	language:Ruby	class:CommentsController
 NumberToggle	/home/bartosz/.vimrc	/^    function! NumberToggle()$/;"	f	language:Vim
+setup	/home/bartosz/Programy/first_rails_app/test/models/article_test.rb	/^  def setup$/;"	f	language:Ruby	class:ArticleTest
 show	/home/bartosz/Programy/blog/app/controllers/articles_controller.rb	/^  def show$/;"	f	language:Ruby	class:ArticlesController
 show	/home/bartosz/Programy/first_rails_app/app/controllers/articles_controller.rb	/^  def show$/;"	f	language:Ruby	class:ArticlesController
 test#strategy	/home/bartosz/.vimrc	/^        let test#strategy = 'neoterm'$/;"	v	language:Vim
