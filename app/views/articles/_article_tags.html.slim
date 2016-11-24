@@ -1,0 +1,6 @@
+- if @article.tags.any?
+  h4> Tags:
+  .tags
+    - @article.tags.each do |tag|
+      .tag
+        = tag.name

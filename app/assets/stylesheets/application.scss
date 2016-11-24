@@ -78,6 +78,15 @@ table {
     }
   }
 }
+.tag {
+  display: inline;
+  padding: 5px 10px;
+  color: white;
+  background-color: #434343;
+  &:nth-child(even) {
+    background-color: #333333;
+  }
+}
 
 .container {
   margin-left: 5%;
