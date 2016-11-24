@@ -4,7 +4,7 @@ class Article < ApplicationRecord
   has_many :tags, through: :article_tags
   validates :title, presence: true, length: { in: 3..500 }
   validates :content, presence: true, length: { minimum: 5 }
-  scope :rnd, -> { order('RANDOM()').first }
+  # scope :rnd, -> { order('RANDOM()').first }
 
   # def self.random
   #   range_min = Article.first.id

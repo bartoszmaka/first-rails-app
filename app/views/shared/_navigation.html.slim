@@ -5,6 +5,6 @@ nav.navbar.navbar-inverse
       li = link_to 'List of Articles', articles_path
       li = link_to 'List of Tags', tags_path
       li = link_to 'New Article', new_article_path
-      li = link_to 'Random Article', Article.rnd
+      / li = link_to 'Random Article', Article.rnd
       / li = link_to 'Random Article', article_path(random: true, id: nil)
       / li = link_to 'Random Article', controller: 'articles', action: 'show', random: true
