@@ -8,6 +8,7 @@
 
 20.times do
   Article.create(title: FFaker::CheesyLingo.title, content: FFaker::Lorem.paragraph)
+  Tag.create(name: FFaker::CheesyLingo.word)
 end
 
 Article.all.each do |article|
