@@ -28,6 +28,8 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'rspec-rails', '~> 3.5'
+gem 'rails-controller-testing'
 gem 'slim'
 gem 'pry'
 gem 'slim-rails'
