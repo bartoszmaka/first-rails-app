@@ -11,4 +11,8 @@ class Tag < ApplicationRecord
     Tag.all.each { |t| tags << t.name }
     tags
   end
+
+  def self.exist_like?(name)
+    !!Tag.find_by(name: name)
+  end
 end

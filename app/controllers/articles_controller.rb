@@ -19,6 +19,7 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
+    @article.separated_tags = params[:article][:separated_tags]
     if @article.save
       redirect_to @article
     else
@@ -32,6 +33,7 @@ class ArticlesController < ApplicationController
 
   def update
     @article = Article.update(params[:id], article_params)
+    @article.separated_tags = params[:article][:separated_tags]
     if @article.save
       redirect_to @article
     else

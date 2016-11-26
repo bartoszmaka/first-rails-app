@@ -6,10 +6,18 @@ class Article < ApplicationRecord
   validates :content, presence: true, length: { minimum: 5 }
   # scope :rnd, -> { order('RANDOM()').first }
 
-  # def self.random
-  #   range_min = Article.first.id
-  #   range_max = Article.last.id
-  #   article = Article.find_by(id: rand(range_min..range_max)) while article.nil?
-  #   article
-  # end
+  def separated_tags
+    tags_names = []
+    tags.each { |tag| tags_names << tag.name }
+    tags_names.join(', ')
+  end
+
+  def separated_tags=(string)
+    return nil if string.nil?
+    string.delete(' ').split(',').each do |tag_name|
+      tag = Tag.find_by(name: tag_name)
+      tag ||= Tag.create(name: tag_name)
+      tags << tag unless tags.include? tag
+    end
+  end
 end
