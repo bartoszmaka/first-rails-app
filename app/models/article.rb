@@ -15,8 +15,7 @@ class Article < ApplicationRecord
   def separated_tags=(string)
     return nil if string.nil?
     string.delete(' ').split(',').each do |tag_name|
-      tag = Tag.find_by(name: tag_name)
-      tag ||= Tag.create(name: tag_name)
+      tag = Tag.find_or_create_by(name: tag_name)
       tags << tag unless tags.include? tag
     end
   end

@@ -1,16 +1,12 @@
 class ArticlesController < ApplicationController
+  include ArticlesHelper
   def index
-    params[:smart_buttons] = [
-      ActionController::Base.helpers.link_to('New Article', new_article_path)
-    ]
+    params[:smart_buttons] = index_buttons
     @articles = Article.all
   end
 
   def show
-    params[:smart_buttons] = [
-      ActionController::Base.helpers.link_to('Edit', edit_article_path),
-      ActionController::Base.helpers.link_to('Delete', article_path, method: :delete)
-    ]
+    params[:smart_buttons] = show_buttons(params[:id])
     @article = Article.find(params[:id])
   end
 
@@ -51,6 +47,6 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:title, :content)
+    params.require(:article).permit(:title, :content, :separated_tags)
   end
 end
