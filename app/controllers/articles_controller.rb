@@ -2,7 +2,11 @@ class ArticlesController < ApplicationController
   include ArticlesHelper
   def index
     params[:smart_buttons] = index_buttons
-    @articles = Article.all
+    if params[:search]
+      @articles = Article.where('title LIKE ?', params[:search])
+    else
+      @articles = Article.all
+    end
   end
 
   def show
