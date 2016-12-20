@@ -6,8 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# generate 20 articles and 20 tags
-20.times do
+# generate 40 articles and 40 tags
+40.times do
   Article.create(title: FFaker::CheesyLingo.title, content: FFaker::Lorem.paragraph)
   Tag.create(name: FFaker::CheesyLingo.word)
 end
