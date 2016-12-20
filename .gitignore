@@ -21,4 +21,4 @@
 .byebug_history
 
 # Ignore vim tags file
-tags
+/tags
