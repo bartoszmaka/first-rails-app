@@ -1,0 +1,16 @@
+h1 Tags list
+= render 'shared/navigation'
+table
+  tr
+    th Id
+    th Name
+    th Articles
+    / th Articles (db)
+    th Actions
+  - @tags.each do |tag|
+    tr
+      td = tag.id
+      td = tag.name
+      / td = tag.articles.count
+      td = tag.articles_count
+      td = link_to 'Show', tag_path(tag)
