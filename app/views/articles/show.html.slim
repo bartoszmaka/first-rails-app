@@ -1,5 +1,4 @@
-h1 Article page
-= render 'shared/navigation'
+- provide :header, "Article page"
 h3.center.big = @article.title
 p = @article.content
 = render 'article_tags'

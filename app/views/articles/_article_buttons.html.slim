@@ -1,6 +1,0 @@
-/ = binding.pry
-/ - if current_page?(controller: 'articles', action: 'show') #raises error instead of false at articles#index
-- if params[:controller] == 'articles' and params[:action] == 'show'
-  ul.nav.navbar-nav.navbar-right
-    li = link_to 'Edit', edit_article_path
-    li = link_to 'Delete', article_path, method: :delete

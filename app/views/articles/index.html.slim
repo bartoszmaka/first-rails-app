@@ -1,5 +1,4 @@
-h1 Articles list
-= render 'shared/navigation'
+- provide :header, "Articles list"
 = form_tag(articles_path, method: "get") do
   = label_tag :search
   = text_field_tag :search
