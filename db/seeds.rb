@@ -6,19 +6,35 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# generate 40 articles and 40 tags
-40.times do
-  Article.create(title: FFaker::CheesyLingo.title, content: FFaker::Lorem.paragraph)
+# generate 10 users
+10.times do
+  User.create(
+    name: FFaker::Internet.user_name,
+    email: FFaker::Internet.safe_email,
+    password: '123456',
+    password_confirmation: '123456'
+  )
+end
+
+# generate up to 11 articles for each user
+User.all.each do |user|
+  rand(0..11).times do
+    user.articles.create(title: FFaker::CheesyLingo.title, content: FFaker::Lorem.paragraph)
+  end
+end
+
+# generate up to 30 tags
+30.times do
   Tag.create(name: FFaker::CheesyLingo.word)
 end
 
+# generate 3..11 comments for each article
 Article.all.each do |article|
-  # generate 3 to 11 comments for each article
   rand(3..11).times do
     article.comments.create(author: FFaker::CheesyLingo.title, content: FFaker::CheesyLingo.paragraph)
   end
 
-  # add 1 to 4 tags to each article
+  # pin 1 to 4 tags to each article
   tags = Tag.all.sample(rand(1..4)).uniq
   tags.each do |tag|
     ArticleTag.create(article_id: article.id, tag_id: tag.id)

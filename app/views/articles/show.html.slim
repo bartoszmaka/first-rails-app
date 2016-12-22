@@ -1,15 +1,21 @@
 - provide :header, "Article page"
+
 h3.center.big = @article.title
-p = @article.content
+
+p
+  | Author:
+  b< #{ @article.author }
+
+h4 = @article.content
+
 = render 'article_tags'
+
 .button
   = link_to 'Create Comment', new_article_comment_path(@article)
+
 h3 Comments:
 = render 'comments/listed_comments'
+
 h4 Actions:
 br
 = link_to 'Comments', article_comments_path(@article)
-/ br
-/ = link_to 'Edit', edit_article_path
-/ = link_to 'Delete', article_path, method: :delete
-/ br

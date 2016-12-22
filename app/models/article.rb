@@ -1,10 +1,15 @@
 class Article < ApplicationRecord
+  belongs_to :user, counter_cache: true
   has_many :comments, dependent: :destroy
   has_many :article_tags, dependent: :destroy
   has_many :tags, through: :article_tags
   validates :title, presence: true, length: { in: 3..500 }
   validates :content, presence: true, length: { minimum: 5 }
   # scope :rnd, -> { order('RANDOM()').first }
+
+  def author
+    user.name
+  end
 
   def separated_tags
     tags_names = []

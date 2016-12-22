@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161221135559) do
+ActiveRecord::Schema.define(version: 20161222172824) do
 
   create_table "article_tags", force: :cascade do |t|
     t.integer "article_id"
@@ -25,10 +25,11 @@ ActiveRecord::Schema.define(version: 20161221135559) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.integer  "comments_count", default: 0
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
   create_table "comments", force: :cascade do |t|
-    t.string   "author"
     t.text     "content"
     t.integer  "article_id"
     t.datetime "created_at", null: false
@@ -46,9 +47,10 @@ ActiveRecord::Schema.define(version: 20161221135559) do
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.string   "password_digest"
+    t.integer  "articles_count",  default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
