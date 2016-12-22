@@ -13,6 +13,9 @@
       <h1><%= yield(:header) %></h1>
       <%= render 'shared/navigation'%>
       <%= yield %>
+      <div class='footer'>
+        <a href='https://github.com/bartoszmaka/first-rails-app'><p>Github</p></a>
+      </div>
     </div>
     <%= debug(params) %>
   </body>
