@@ -1,0 +1,21 @@
+- provide :header, 'Sign up'
+
+= form_for :user, url: register_path do |f|
+  = f.label :name
+  = f.text_field :name
+  br
+  = f.label :email
+  = f.email_field :email
+  br
+  = f.label :password
+  = f.password_field :password
+  br
+  = f.label :password_confirmation
+  = f.password_field :password_confirmation
+  br
+  = f.submit
+
+p
+  | already registered?
+  =< link_to "log in", login_path
+

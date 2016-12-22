@@ -4,6 +4,11 @@ nav.navbar.navbar-inverse
       li = link_to 'Home', root_path
       li = link_to 'List of Articles', articles_path
       li = link_to 'List of Tags', tags_path
+      - if current_user
+        li = link_to 'Log out', logout_path, method: :delete
+      - else
+        li = link_to 'Log in', '/login'
+        li = link_to 'Register', signup_path
       / li = link_to 'New Article', new_article_path
     / = render 'articles/article_buttons'
     - if params[:smart_buttons]
