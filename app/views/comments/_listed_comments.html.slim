@@ -1,6 +1,6 @@
 - @article.comments.reverse.each do |comment|
   .comment
-    p = comment.author
+    b = link_to comment.author, user_path(comment.user)
     p = comment.content
     = link_to 'Edit Comment', edit_article_comment_path(@article, comment)
     br

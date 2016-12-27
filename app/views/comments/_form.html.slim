@@ -1,8 +1,6 @@
 = form_for ([@article, @comment]) do |f|
   - if @comment.errors.any?
     = render 'form_errors'
-  p = f.label :author
-  = f.text_field :author
   p = f.label :content
   = f.text_area :content, size: "60x12"
   br = f.submit

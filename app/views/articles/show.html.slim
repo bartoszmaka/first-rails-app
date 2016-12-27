@@ -4,7 +4,7 @@ h3.center.big = @article.title
 
 p
   | Author:
-  b< #{ @article.author }
+  b = link_to @article.author, user_path(@article.user)
 
 h4 = @article.content
 
