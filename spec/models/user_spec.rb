@@ -41,7 +41,7 @@ RSpec.describe User, type: :model do
     )
     valid_emails.each do |valid_email|
       @user.email = valid_email
-      expect(@user.valid?).to be true
+      expect(@user.valid?).to be true, "rejected email: #{valid_email.inspect}"
     end
   end
 
