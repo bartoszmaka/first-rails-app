@@ -31,7 +31,7 @@ end
 # generate 3..11 comments for each article
 Article.all.each do |article|
   rand(3..11).times do
-    article.comments.create(author: FFaker::CheesyLingo.title, content: FFaker::CheesyLingo.paragraph)
+    article.comments.create(content: FFaker::CheesyLingo.paragraph)
   end
 
   # pin 1 to 4 tags to each article

@@ -12,11 +12,14 @@
 
 ActiveRecord::Schema.define(version: 20161222172824) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "article_tags", force: :cascade do |t|
     t.integer "article_id"
     t.integer "tag_id"
-    t.index ["article_id"], name: "index_article_tags_on_article_id"
-    t.index ["tag_id"], name: "index_article_tags_on_tag_id"
+    t.index ["article_id"], name: "index_article_tags_on_article_id", using: :btree
+    t.index ["tag_id"], name: "index_article_tags_on_tag_id", using: :btree
   end
 
   create_table "articles", force: :cascade do |t|
@@ -26,7 +29,7 @@ ActiveRecord::Schema.define(version: 20161222172824) do
     t.datetime "updated_at",                 null: false
     t.integer  "comments_count", default: 0
     t.integer  "user_id"
-    t.index ["user_id"], name: "index_articles_on_user_id"
+    t.index ["user_id"], name: "index_articles_on_user_id", using: :btree
   end
 
   create_table "comments", force: :cascade do |t|
@@ -34,7 +37,7 @@ ActiveRecord::Schema.define(version: 20161222172824) do
     t.integer  "article_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["article_id"], name: "index_comments_on_article_id"
+    t.index ["article_id"], name: "index_comments_on_article_id", using: :btree
   end
 
   create_table "tags", force: :cascade do |t|
@@ -51,7 +54,7 @@ ActiveRecord::Schema.define(version: 20161222172824) do
     t.datetime "updated_at",                  null: false
     t.string   "password_digest"
     t.integer  "articles_count",  default: 0
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
   end
 
 end
