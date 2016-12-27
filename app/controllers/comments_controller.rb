@@ -5,7 +5,6 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    # @article = Article.find(params[:article_id])
     @comment = Comment.find(params[:id])
     @comment.destroy
     flash[:success] = 'Comment succesfully deleted'
@@ -20,8 +19,7 @@ class CommentsController < ApplicationController
   def create
     @article = Article.find(params[:article_id])
     @comment = @article.comments.new(comment_params)
-    if @comment.valid?
-      @comment.save
+    if @comment.save
       flash[:success] = 'Comment succesfully created'
       redirect_to article_path(@article)
     else
@@ -38,8 +36,7 @@ class CommentsController < ApplicationController
     @article = Article.find(params[:article_id])
     @comment = Comment.find(params[:id])
     @comment.update(comment_params)
-    if @comment.valid?
-      @comment.save
+    if @comment.save
       flash[:success] = 'Comment succesfully updated'
       redirect_to article_path(@article)
     else
@@ -50,6 +47,6 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:author, :content)
+    params.require(:comment).permit(:content)
   end
 end

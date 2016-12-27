@@ -27,6 +27,7 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
+    @article.user = current_user
     @article.separated_tags = params[:article][:separated_tags]
     if @article.save
       flash[:success] = 'Article succesfully created'

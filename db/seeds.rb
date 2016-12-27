@@ -31,7 +31,12 @@ end
 # generate 3..11 comments for each article
 Article.all.each do |article|
   rand(3..11).times do
-    article.comments.create(content: FFaker::CheesyLingo.paragraph)
+    user = User.order('RANDOM()').limit(1)
+    Comment.create do |c|
+      c.content = FFaker::CheesyLingo.paragraph
+      c.article = article
+      c.user = user.first
+    end
   end
 
   # pin 1 to 4 tags to each article
