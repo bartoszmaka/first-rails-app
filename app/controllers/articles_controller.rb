@@ -21,6 +21,7 @@ class ArticlesController < ApplicationController
   def destroy
     @article = Article.find(params[:id])
     @article.destroy
+    flash[:success] = 'Article succesfully deleted'
     redirect_to articles_path
   end
 
@@ -28,6 +29,7 @@ class ArticlesController < ApplicationController
     @article = Article.new(article_params)
     @article.separated_tags = params[:article][:separated_tags]
     if @article.save
+      flash[:success] = 'Article succesfully created'
       redirect_to @article
     else
       render 'new'
@@ -42,6 +44,7 @@ class ArticlesController < ApplicationController
     @article = Article.update(params[:id], article_params)
     @article.separated_tags = params[:article][:separated_tags]
     if @article.save
+      flash[:success] = 'Article succesfully updated'
       redirect_to @article
     else
       render 'edit'

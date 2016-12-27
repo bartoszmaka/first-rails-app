@@ -8,6 +8,7 @@ class CommentsController < ApplicationController
     # @article = Article.find(params[:article_id])
     @comment = Comment.find(params[:id])
     @comment.destroy
+    flash[:success] = 'Comment succesfully deleted'
     redirect_to article_path(params[:article_id])
   end
 
@@ -21,6 +22,7 @@ class CommentsController < ApplicationController
     @comment = @article.comments.new(comment_params)
     if @comment.valid?
       @comment.save
+      flash[:success] = 'Comment succesfully created'
       redirect_to article_path(@article)
     else
       render 'new'
@@ -38,6 +40,7 @@ class CommentsController < ApplicationController
     @comment.update(comment_params)
     if @comment.valid?
       @comment.save
+      flash[:success] = 'Comment succesfully updated'
       redirect_to article_path(@article)
     else
       render 'edit'
