@@ -14,10 +14,14 @@
       <%= render 'shared/navigation'%>
       <%= render 'shared/flash_messages' %>
       <%= yield %>
-      <div class='footer'>
-        <a href='https://github.com/bartoszmaka/first-rails-app'><p>Github</p></a>
-      </div>
     </div>
+      <footer>
+        <div class='container'>
+          <div class='col-xs-4 col-xs-offset-4'>
+            <a class='btn btn-default btn-lg btn-block' href='https://github.com/bartoszmaka/first-rails-app'><p>Github</p></a>
+          </div>
+        </div>
+      </footer>
     <%= debug(params) %>
   </body>
 </html>
