@@ -22,8 +22,12 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article = Article.find(params[:id])
-    @article.destroy
-    flash[:success] = 'Article succesfully deleted'
+    if current_user_owns? @article
+      @article.destroy
+      flash[:success] = 'Article succesfully deleted'
+    else
+      flash[:danger] = 'You are not permitted to delete this article'
+    end
     redirect_to articles_path
   end
 
@@ -41,6 +45,10 @@ class ArticlesController < ApplicationController
 
   def edit
     @article = Article.find(params[:id])
+    unless current_user_owns? @article
+      flash[:danger] = 'You are not permitted to edit this article'
+      redirect_to articles_path
+    end
   end
 
   def update

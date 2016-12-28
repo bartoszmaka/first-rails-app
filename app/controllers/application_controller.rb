@@ -9,4 +9,8 @@ class ApplicationController < ActionController::Base
   def authorize
     redirect_to '/denied' unless current_user
   end
+
+  def current_user_owns?(whatever)
+    current_user == whatever.user
+  end
 end

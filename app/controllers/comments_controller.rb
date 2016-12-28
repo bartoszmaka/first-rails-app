@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  include ArticlesHelper
+  # include ApplicationHelper
   before_action :authorize, only: [:new, :edit, :update, :destroy]
 
   def index
@@ -9,8 +9,12 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment = Comment.find(params[:id])
-    @comment.destroy
-    flash[:success] = 'Comment succesfully deleted'
+    if current_user_owns? @comment
+      @comment.destroy
+      flash[:success] = 'Comment succesfully deleted'
+    else
+      flash[:danger] = 'You are not permitted to delete this comment'
+    end
     redirect_to article_path(params[:article_id])
   end
 
@@ -22,6 +26,7 @@ class CommentsController < ApplicationController
   def create
     @article = Article.find(params[:article_id])
     @comment = @article.comments.new(comment_params)
+    @comment.user = current_user
     if @comment.save
       flash[:success] = 'Comment succesfully created'
       redirect_to article_path(@article)
@@ -33,6 +38,10 @@ class CommentsController < ApplicationController
   def edit
     @article = Article.find(params[:article_id])
     @comment = Comment.find(params[:id])
+    unless current_user_owns? @comment
+      flash[:danger] = 'You are not permitted to edit this comment'
+      redirect_to @article
+    end
   end
 
   def update
