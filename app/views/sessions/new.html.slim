@@ -2,10 +2,10 @@
 
 = form_for(:session, url: login_path) do |f|
   .form-group.col-sm-8
-    = f.label :email, class: 'col-sm-2 control-label'
+    = f.label :email, class: 'col-sm-4 control-label'
     = f.email_field :email, class: 'form-control'
   .form-group.col-sm-8.
-    = f.label :password, class: 'col-sm-2 control-label'
+    = f.label :password, class: 'col-sm-4 control-label'
     = f.password_field :password, class: 'form-control'
   .form-group.col-sm-8.
     = f.submit 'Log in', class: 'btn btn-default'

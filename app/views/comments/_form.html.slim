@@ -1,7 +1,9 @@
 = form_for ([@article, @comment]) do |f|
   - if @comment.errors.any?
     = render 'form_errors'
-  p = f.label :content
-  = f.text_area :content, size: "60x12"
-  br = f.submit
+  .form-group
+    p = f.label :content
+    = f.text_area :content, class: 'form-control', rows: '4'
+  .form-group
+    br = f.submit 'Create', class: 'btn btn-default'
 

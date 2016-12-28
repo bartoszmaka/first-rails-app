@@ -1,21 +1,17 @@
 - provide :header, "Article page"
 
-h3.center.big = @article.title
-
-p
-  | Author:
-  b = link_to @article.author, user_path(@article.user)
+h3
+  = @article.title
+  small
+    p
+      | Author:
+      =< link_to @article.author, user_path(@article.user)
 
 h4 = @article.content
 
 = render 'article_tags'
 
-.button
-  = link_to 'Create Comment', new_article_comment_path(@article)
-
 h3 Comments:
 = render 'comments/listed_comments'
-
-h4 Actions:
-br
-= link_to 'Comments', article_comments_path(@article)
+= link_to 'Add Comment', new_article_comment_path(@article)
+/ = render 'comments/form'

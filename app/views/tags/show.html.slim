@@ -1,3 +1,5 @@
 - provide :header, "Tag page"
-h3.center.big = @tag.name
+h3
+  small> Articles with tag:
+  = @tag.name
 = render 'articles/listed_articles'
