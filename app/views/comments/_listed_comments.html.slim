@@ -1,9 +1,9 @@
   - @article.comments.reverse.each do |comment|
-    .comment
-      b.text-left = link_to comment.author, user_path(comment.user)
-      / .col-sm-offset-1.col-sm-10
-    .col-sm-offset-1.col-sm-10
-      p = comment.content
-      p.text-right
-        = link_to 'Edit Comment', edit_article_comment_path(@article, comment)
-        = link_to 'Delete Comment', article_comment_path(@article, comment), method: :delete
+    .row
+      .col-sm-2
+        b.text-left = link_to comment.author, user_path(comment.user)
+      .col-sm-10
+        p = comment.content
+        p.text-right
+          = link_to 'Edit Comment', edit_article_comment_path(@article, comment), class: 'btn btn-default'
+          = link_to 'Delete Comment', article_comment_path(@article, comment), method: :delete, class: 'btn btn-default'
