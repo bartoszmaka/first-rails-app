@@ -7,6 +7,19 @@ h3
       | Author:
       =< link_to @article.author, user_path(@article.user)
 
+p
+  | score:
+  =< @article.score
+  - if current_user
+    h2 someone?
+    / =< link_to '+', new_vote_path({article: @article, value: true}), class: 'btn btn-primary'
+    / =< link_to '-', new_vote_path({article: @article, value: false}), class: 'btn btn-primary'
+  - else
+    h2 nobody
+    =< link_to '+', '#', class: 'btn btn-primary'
+    =< link_to '-', '#', class: 'btn btn-primary'
+
+
 h4 = @article.content
 
 = render 'article_tags'

@@ -13,4 +13,8 @@ class ApplicationController < ActionController::Base
   def current_user_owns?(whatever)
     current_user == whatever.user
   end
+
+  def not_voted(votable)
+    true
+  end
 end

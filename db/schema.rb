@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161227212529) do
+ActiveRecord::Schema.define(version: 20170127175511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,14 +29,16 @@ ActiveRecord::Schema.define(version: 20161227212529) do
     t.datetime "updated_at",                 null: false
     t.integer  "user_id"
     t.integer  "comments_count", default: 0
+    t.integer  "score",          default: 0
   end
 
   create_table "comments", force: :cascade do |t|
     t.text     "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.integer  "article_id"
     t.integer  "user_id"
+    t.integer  "score",      default: 0
   end
 
   create_table "tags", force: :cascade do |t|
@@ -55,6 +57,17 @@ ActiveRecord::Schema.define(version: 20161227212529) do
     t.integer  "articles_count",  default: 0
     t.integer  "comments_count",  default: 0
     t.index ["email"], name: "index_users_on_email", using: :btree
+  end
+
+  create_table "votes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "votable_type"
+    t.integer  "votable_id"
+    t.boolean  "value",        default: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["user_id"], name: "index_votes_on_user_id", using: :btree
+    t.index ["votable_type", "votable_id"], name: "index_votes_on_votable_type_and_votable_id", using: :btree
   end
 
   add_foreign_key "articles", "users"
