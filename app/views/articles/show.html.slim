@@ -12,8 +12,15 @@ p
   =< @article.score
   - if current_user
     / = binding.pry
-    / =< link_to '+', vote_path(@article, value: true), class: 'btn btn-success'
-    / =< link_to '-', vote_path, class: 'btn btn-success'
+    - if current_user.voted_positive?(@article)
+      = link_to '+', article_vote_path(@article, @vote), class: 'btn btn-success', method: :delete
+      = link_to '-', article_votes_path(@article), class: 'btn btn-default', method: :post
+    - elsif current_user.voted_negative?(@article)
+      = link_to '+', article_votes_path(@article, value: true), class: 'btn btn-default', method: :post
+      = link_to '-', article_vote_path(@article, @vote), class: 'btn btn-success', method: :delete
+    - else
+      = link_to '+', article_votes_path(@article, value: true), class: 'btn btn-default', method: :post
+      = link_to '-', article_votes_path(@article), class: 'btn btn-default', method: :post
   - else
     .btn.btn-default disabled='disabled' +
     .btn.btn-default disabled='disabled' -

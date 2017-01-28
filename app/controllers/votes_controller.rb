@@ -1,7 +1,13 @@
 class VotesController < ApplicationController
+  def new
+    votable = Article.find(params[:article_id])
+    @vote = Vote.new
+    redirect_to votable
+  end
   def create
-    found_votable = Comment.find_by(id: params[:id]) if params[:article_id]
-    found_votable = Article.find_by(id: params[:id])
+    # binding.pry
+    found_votable = Article.find_by(id: params[:article_id]) if params[:article_id]
+    found_votable = Comment.find_by(id: params[:comment_id]) if params[:comment_id]
     if current_user.voted? found_votable
       Vote.find_by(user: current_user, votable: found_votable).destroy
     end

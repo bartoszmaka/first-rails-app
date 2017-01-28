@@ -3,10 +3,14 @@ Rails.application.routes.draw do
   resources :articles do
     resources :comments
   end
+  resources :articles, only: :show do
+    resources :votes, only: [:create, :destroy, :new]
+    resources :comments, only: :show do
+      resources :votes, only: [:create, :destroy, :new]
+    end
+  end
+
   resources :tags
-  # resources :users
-  post    '/vote',          to: 'votes#create',         as: 'vote'
-  delete  '/unvote',        to: 'votes#destroy',        as: 'unvote'
   get     '/login',         to: 'sessions#new'
   post    '/login',         to: 'sessions#create'
   delete  '/logout',        to: 'sessions#destroy',     as: 'logout'

@@ -14,6 +14,9 @@ class ArticlesController < ApplicationController
   def show
     params[:smart_buttons] = show_buttons(params[:id])
     @article = Article.find(params[:id])
+    if current_user
+      @vote = Vote.find_by votable: @article, user: current_user
+    end
   end
 
   def new
