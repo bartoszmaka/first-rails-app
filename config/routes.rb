@@ -4,10 +4,11 @@ Rails.application.routes.draw do
     resources :comments
   end
   resources :articles, only: :show do
-    resources :votes, only: [:create, :destroy, :new]
-    resources :comments, only: :show do
-      resources :votes, only: [:create, :destroy, :new]
-    end
+    resource :votes, only: [:create, :destroy]
+  end
+
+  resources :comments, only: :show do
+    resource :votes, only: [:create, :destroy]
   end
 
   resources :tags

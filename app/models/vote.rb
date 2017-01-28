@@ -8,6 +8,10 @@ class Vote < ApplicationRecord
 
   validates_uniqueness_of :user, scope: :votable
 
+  # def self.(user, votable)
+  #   Vote.find_by user: user, votable: votable
+  # end
+
   def add_vote_value_to_score
     value == true ? votable.increment!(:score) : votable.decrement!(:score)
   end

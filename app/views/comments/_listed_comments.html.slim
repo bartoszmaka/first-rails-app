@@ -1,4 +1,5 @@
   - @article.comments.reverse.each do |comment|
+    = render 'votable/voting', votable: comment
     .row
       .col-sm-2
         b.text-left = link_to comment.author, user_path(comment.user)
