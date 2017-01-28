@@ -12,4 +12,10 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 6 }
+
+  def voted?(given_votable)
+    # temporary workaround
+    return false unless [Article, Comment].include? given_votable.class
+    !!(votes.find_by votable: given_votable)
+  end
 end

@@ -9,6 +9,6 @@ class Vote < ApplicationRecord
   validates_uniqueness_of :user, scope: :votable
 
   def update_votable_score
-    value == true ? votable.increment!(:score) : votable.increment!(:score, -1)
+    value == true ? votable.increment!(:score) : votable.decrement!(:score)
   end
 end

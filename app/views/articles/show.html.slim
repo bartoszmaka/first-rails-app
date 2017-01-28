@@ -11,14 +11,12 @@ p
   | score:
   =< @article.score
   - if current_user
-    h2 someone?
-    / =< link_to '+', new_vote_path({article: @article, value: true}), class: 'btn btn-primary'
-    / =< link_to '-', new_vote_path({article: @article, value: false}), class: 'btn btn-primary'
+    / = binding.pry
+    / =< link_to '+', vote_path(@article, value: true), class: 'btn btn-success'
+    / =< link_to '-', vote_path, class: 'btn btn-success'
   - else
-    h2 nobody
-    =< link_to '+', '#', class: 'btn btn-primary'
-    =< link_to '-', '#', class: 'btn btn-primary'
-
+    .btn.btn-default disabled='disabled' +
+    .btn.btn-default disabled='disabled' -
 
 h4 = @article.content
 

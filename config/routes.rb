@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   end
   resources :tags
   # resources :users
+  post    '/vote',          to: 'votes#create',         as: 'vote'
+  delete  '/unvote',        to: 'votes#destroy',        as: 'unvote'
   get     '/login',         to: 'sessions#new'
   post    '/login',         to: 'sessions#create'
   delete  '/logout',        to: 'sessions#destroy',     as: 'logout'
