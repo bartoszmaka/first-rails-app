@@ -3,20 +3,14 @@ p
   =< votable.score
   - if current_user
     - if current_user.voted_positive?(votable)
-      = link_to '+', polymorphic_path([votable, @vote]), class: 'btn btn-success', method: :delete
-      = link_to '-', polymorphic_path([votable, Vote]), class: 'btn btn-default', method: :post
-      / = link_to '+', article_vote_path(votable, @vote), class: 'btn btn-success', method: :delete
-      / = link_to '-', article_votes_path(votable), class: 'btn btn-default', method: :post
+      = link_to '+', polymorphic_path([votable, :votes]), class: 'btn btn-success', method: :delete
+      = link_to '-', polymorphic_path([votable, :votes]), class: 'btn btn-default', method: :post
     - elsif current_user.voted_negative?(votable)
-      = link_to '+', polymorphic_path([votable, Vote], value: true), class: 'btn btn-default', method: :post
-      = link_to '-', polymorphic_path([votable, @vote]), class: 'btn btn-danger', method: :delete
-      / = link_to '+', article_votes_path(votable, value: true), class: 'btn btn-default', method: :post
-      / = link_to '-', article_vote_path(votable, @vote), class: 'btn btn-danger', method: :delete
+      = link_to '+', polymorphic_path([votable, :votes], value: true), class: 'btn btn-default', method: :post
+      = link_to '-', polymorphic_path([votable, :votes]), class: 'btn btn-danger', method: :delete
     - else
-      = link_to '+', polymorphic_path([votable, Vote], value: true), class: 'btn btn-default', method: :post
-      = link_to '-', polymorphic_path([votable, Vote]), class: 'btn btn-default', method: :post
-      / = link_to '+', article_votes_path(votable, value: true), class: 'btn btn-default', method: :post
-      / = link_to '-', article_votes_path(votable), class: 'btn btn-default', method: :post
+      = link_to '+', polymorphic_path([votable, :votes], value: true), class: 'btn btn-default', method: :post
+      = link_to '-', polymorphic_path([votable, :votes]), class: 'btn btn-default', method: :post
   - else
     .btn.btn-default disabled='disabled' +
     .btn.btn-default disabled='disabled' -
