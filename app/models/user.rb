@@ -2,6 +2,8 @@ class User < ApplicationRecord
   has_many :articles, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :votes
+  has_many :articles_voted_on, through: :votes, source: :votable, source_type: 'Article'
+  has_many :comments_voted_on, through: :votes, source: :votable, source_type: 'Comment'
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   has_secure_password
@@ -17,7 +19,7 @@ class User < ApplicationRecord
     # temporary workaround
     return false unless [Article, Comment].include? given_votable.class
     unless val.nil?
-     !!(votes.find_by votable: given_votable, value: val)
+      !!(votes.find_by votable: given_votable, value: val)
     else
       !!(votes.find_by votable: given_votable)
     end
