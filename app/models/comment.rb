@@ -1,4 +1,5 @@
 class Comment < ApplicationRecord
+  include Votable
   belongs_to :article, counter_cache: true
   belongs_to :user, counter_cache: true
   has_many :votes, as: :votable

@@ -1,10 +1,11 @@
 class Article < ApplicationRecord
+  include Votable
   belongs_to :user, counter_cache: true
   has_many :comments, dependent: :destroy
   has_many :article_tags, dependent: :destroy
   has_many :tags, through: :article_tags
   has_many :votes, as: :votable
-  has_many :voted_users, through: :votes, source: :user
+  # has_many :voted_users, through: :votes, source: :user
 
   validates :title, presence: true, length: { in: 3..500 }
   validates :content, presence: true, length: { minimum: 5 }
