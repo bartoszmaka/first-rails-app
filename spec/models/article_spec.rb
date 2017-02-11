@@ -2,19 +2,16 @@ require 'rails_helper'
 
 RSpec.describe Article, type: :model do
   before(:each) do
-    @user = User.create(
-      name: 'TesterGeorge',
-      email: 'george@example.com',
-      password: 'foobar',
-      password_confirmation: 'foobar'
-    )
-    @article = Article.new
-    @article.title = 'long enough title to be accepted'
-    @article.content = 'some long enough content'
-    @article.user = @user
+    @article = build(:article)
   end
-  it 'sample article should be valid' do
+
+  it 'sample should be valid' do
     expect(@article.valid?).to be true
+  end
+
+  it 'should belong to user' do
+    @article.user = nil
+    expect(@article.valid?).to be false
   end
 
   it 'denies to create invalid article' do

@@ -2,12 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   before(:each) do
-    @user = User.new(
-      name: 'Example User',
-      email: 'exampleemail@example.com',
-      password: 'password',
-      password_confirmation: 'password'
-    )
+    @user = build(:user)
   end
 
   it 'should be valid' do
@@ -41,7 +36,6 @@ RSpec.describe User, type: :model do
     )
     valid_emails.each do |valid_email|
       @user.email = valid_email
-      # expect(@user.valid?).to be true, "rejected email: #{valid_email.inspect}"
       expect(@user.valid?).to be true
     end
   end

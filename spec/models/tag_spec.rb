@@ -2,12 +2,10 @@ require 'rails_helper'
 
 RSpec.describe Tag, type: :model do
   before(:each) do
-    @tag = Tag.new(
-      name: 'TestingName'
-    )
+    @tag = build(:tag)
   end
 
-  it 'samople tag should be valid' do
+  it 'sample should be valid' do
     expect(@tag.valid?).to be true
   end
 
