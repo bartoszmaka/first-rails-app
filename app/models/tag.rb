@@ -3,7 +3,7 @@ class Tag < ApplicationRecord
   has_many :articles, through: :article_tags
   validates :name, presence: true,
                    uniqueness: true,
-                   format: { with: /[A-Za-z0-9]+/ },
+                   format: { with: /\A[A-Za-z0-9]+\z/ },
                    length: { minimum: 1 }
 
   def self.all_tags_names

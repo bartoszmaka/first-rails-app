@@ -1,5 +1,29 @@
 require 'rails_helper'
 
 RSpec.describe Tag, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before(:each) do
+    @tag = Tag.new(
+      name: 'TestingName'
+    )
+  end
+
+  it 'samople tag should be valid' do
+    expect(@tag.valid?).to be true
+  end
+
+  it 'should have name' do
+    @tag.name = ''
+    expect(@tag.valid?).to be false
+  end
+
+  it 'should have unique name' do
+    other_tag = @tag.dup
+    other_tag.save
+    expect(@tag.valid?).to be false
+  end
+
+  it 'should consist of alphanumeric only' do
+    @tag.name = 'abc123!@#'
+    expect(@tag.valid?).to be false
+  end
 end
