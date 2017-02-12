@@ -10,6 +10,10 @@ FactoryGirl.define do
       association :votable, factory: :comment, strategy: :create
     end
 
+    trait :empty do
+      positive nil
+    end
+
     trait :positive do
       positive true
     end
@@ -18,6 +22,8 @@ FactoryGirl.define do
       positive false
     end
 
+    factory :empty_article_vote, traits: [:for_article, :empty]
+    factory :empty_comment_vote, traits: [:for_comment, :empty]
     factory :positive_article_vote, traits: [:for_article, :positive]
     factory :negative_article_vote, traits: [:for_article, :negative]
     factory :positive_comment_vote, traits: [:for_comment, :positive]
