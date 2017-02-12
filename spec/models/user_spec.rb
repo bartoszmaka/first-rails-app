@@ -6,8 +6,48 @@ RSpec.describe User, type: :model do
   end
 
   it 'should be valid' do
-    puts "email: #{@user.email}"
     expect(@user.valid?).to be true
+  end
+
+  it 'should be unique' do
+    duplicated = @user.dup
+    duplicated.email = @user.email.upcase
+    @user.save
+    expect(duplicated.valid?).to be false
+  end
+
+  context 'articles_count' do
+    before(:each) do
+      @article = create(:article, user: @user)
+      @old_articles_count = @user.articles_count
+    end
+
+    it 'should increase after creating article' do
+      create(:article, user: @user)
+      expect(@user.articles_count).to eq(@old_articles_count + 1)
+    end
+
+    it 'should increase after creating article' do
+      @article.destroy
+      expect(@user.articles_count).to eq(@old_articles_count - 1)
+    end
+  end
+
+  context 'comments_count' do
+    before(:each) do
+      @comment = create(:comment, user: @user)
+      @old_comments_count = @user.comments_count
+    end
+
+    it 'should increase after creating comment' do
+      create(:comment, user: @user)
+      expect(@user.comments_count).to eq(@old_comments_count + 1)
+    end
+
+    it 'should increase after creating comment' do
+      @comment.destroy
+      expect(@user.comments_count).to eq(@old_comments_count - 1)
+    end
   end
 
   it 'should require name' do
@@ -39,13 +79,6 @@ RSpec.describe User, type: :model do
       @user.email = valid_email
       expect(@user.valid?).to be true
     end
-  end
-
-  it 'should be unique' do
-    duplicated = @user.dup
-    duplicated.email = @user.email.upcase
-    @user.save
-    expect(duplicated.valid?).to be false
   end
 
   it 'should have nonblank password' do

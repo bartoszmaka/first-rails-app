@@ -9,14 +9,12 @@ RSpec.describe Vote, type: :model do
     @old_score = @votable.score
   end
 
-
   it 'should have votable' do
     expect(@votable.class.nil?).to be false
   end
 
   it 'should decrease votable score by 2 after changing from positive to negative' do
     @positive_vote.downvote
-    puts @votable.votes
     expect(@votable.score).to eq(@old_score - 2)
   end
 

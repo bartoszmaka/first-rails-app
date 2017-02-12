@@ -14,4 +14,9 @@ RSpec.describe Comment, type: :model do
     @comment.article = nil
     expect(@comment.valid?).to be false
   end
+
+  it 'content cant be blank' do
+    @comment.content = ''
+    expect(@comment.valid?).to be false
+  end
 end
