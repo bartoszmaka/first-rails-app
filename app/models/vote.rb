@@ -8,20 +8,20 @@ class Vote < ApplicationRecord
 
   def upvote
     return if positive == true
-    positive ? votable.increment!(:score) : votable.increment!(:score, 2)
+    positive.nil? ? votable.increment!(:score) : votable.increment!(:score, 2)
     update_attribute :positive, true
   end
 
   def downvote
     return if positive == false
-    positive ? votable.decrement!(:score) : votable.decrement!(:score, 2)
+    positive.nil? ? votable.decrement!(:score) : votable.decrement!(:score, 2)
     update_attribute :positive, false
   end
 
   private
 
   def update_votable_score_for_vote_delete
-    value == true ? votable.decrement!(:score) : votable.increment!(:score)
+    positive == true ? votable.decrement!(:score) : votable.increment!(:score)
   end
 
   def swapvote

@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :comment do
-    content 'sample content'
+    content FFaker::HipsterIpsum.phrase
     association :article, strategy: :build
     association :user, strategy: :build
   end

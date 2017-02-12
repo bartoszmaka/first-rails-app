@@ -6,6 +6,7 @@ RSpec.describe Tag, type: :model do
   end
 
   it 'sample should be valid' do
+    puts "name: #{@tag.name}"
     expect(@tag.valid?).to be true
   end
 

@@ -6,6 +6,7 @@ RSpec.describe User, type: :model do
   end
 
   it 'should be valid' do
+    puts "email: #{@user.email}"
     expect(@user.valid?).to be true
   end
 
