@@ -1,0 +1,17 @@
+p
+  | score:
+  =< votable.score
+  - case votable.votes.by_user(current_user)&.positive
+  - when true
+    = link_to '+', votable_votes_path(votable, votable_type: votable.class), class: 'btn btn-success', method: :delete
+    = link_to '-', votable_votes_path(votable, votable_type: votable.class), class: 'btn btn-default', method: :patch
+  - when false
+    = link_to '+', votable_votes_path(votable, votable_type: votable.class), class: 'btn btn-default', method: :patch
+    = link_to '-', votable_votes_path(votable, votable_type: votable.class), class: 'btn btn-success', method: :delete
+  - when nil
+    - if current_user
+      = link_to '+', votable_votes_path(votable, votable_type: votable.class, positive: true), class: 'btn btn-default', method: :post
+      = link_to '-', votable_votes_path(votable, votable_type: votable.class), class: 'btn btn-default', method: :post
+    - else
+      .btn.btn-default disabled='disabled' +
+      .btn.btn-default disabled='disabled' -

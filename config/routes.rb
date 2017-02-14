@@ -3,13 +3,17 @@ Rails.application.routes.draw do
   resources :articles do
     resources :comments
   end
-  resources :articles, only: :show do
-    resource :votes, only: [:create, :destroy]
+
+  resources :votables, only: [] do
+    resource :votes, only: [:create, :destroy, :update]
   end
 
-  resources :comments, only: :show do
-    resource :votes, only: [:create, :destroy]
-  end
+  # resources :articles, only: [], as: :votable do
+  # end
+
+  #   resources :comments, only: :show
+  #   resources :comments, only: [], as: :votable do
+  #   end
 
   resources :tags
   get     '/login',         to: 'sessions#new'

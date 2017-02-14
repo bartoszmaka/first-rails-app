@@ -1,23 +1,20 @@
 class VotesController < ApplicationController
   def create
-    found_votable = Article.find_by(id: params[:article_id]) if params[:article_id]
-    found_votable = Comment.find_by(id: params[:comment_id]) if params[:comment_id]
-    if current_user.voted? found_votable
-      Vote.find_by(user: current_user, votable: found_votable).destroy
-    end
-    current_user.votes.create do |v|
-      v.votable = found_votable
-      v.value = true if params[:value] == 'true'
-    end
+    @vote = Vote.new(user: current_user, votable_id: params[:votable_id], votable_type: params[:votable_type])
+    params[:positive] ? @vote.upvote : @vote.downvote
+    @vote.save
+    redirect_to :back
+  end
+
+  def update
+    @vote = Vote.find_by(user: current_user, votable_id: params[:votable_id], votable_type: params[:votable_type])
+    @vote.positive ? @vote.downvote : @vote.upvote
     redirect_to :back
   end
 
   def destroy
-    found_votable = Article.find_by(id: params[:article_id]) if params[:article_id]
-    found_votable = Comment.find_by(id: params[:comment_id]) if params[:comment_id]
-    if current_user.voted? found_votable
-      Vote.find_by(user: current_user, votable: found_votable).destroy
-    end
+    @vote = Vote.find_by(user: current_user, votable_id: params[:votable_id], votable_type: params[:votable_type])
+    @vote.destroy
     redirect_to :back
   end
 end

@@ -7,7 +7,7 @@ h3
       | Author:
       =< link_to @article.author, user_path(@article.user)
 
-= render 'votable/voting', votable: @article
+= render 'shared/vote_picker', votable: @article
 
 h4 = @article.content
 

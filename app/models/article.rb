@@ -4,12 +4,13 @@ class Article < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :article_tags, dependent: :destroy
   has_many :tags, through: :article_tags
-  has_many :votes, as: :votable
-  # has_many :voted_users, through: :votes, source: :user
 
   validates :title, presence: true, length: { in: 3..500 }
   validates :content, presence: true, length: { minimum: 5 }
-  # scope :rnd, -> { order('RANDOM()').first }
+
+  def vote_by_user(user)
+    votes.find_by(user: user)
+  end
 
   def author
     user.name
