@@ -22,3 +22,6 @@
 
 # Ignore vim tags file
 /tags
+
+# Ignore simplecov gem files
+coverage
