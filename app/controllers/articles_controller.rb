@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   include ArticlesHelper
-  before_action :authorize, only: [:new, :edit, :update, :destroy]
+  before_action :authorize, only: [:new, :edit, :update, :destroy, :create]
 
   def index
     params[:smart_buttons] = index_buttons
@@ -66,6 +66,6 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:title, :content, :separated_tags)
+    params.require(:article).permit(:title, :content, :user_id, :separated_tags)
   end
 end
