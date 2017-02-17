@@ -24,4 +24,4 @@
 /tags
 
 # Ignore simplecov gem files
-coverage
+/coverage
