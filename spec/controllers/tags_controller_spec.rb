@@ -10,6 +10,9 @@ describe TagsController, type: :controller do
     it 'exposes tags' do
       expect(assigns(:tags)).to eq [tag]
     end
+    it { expect(call_request).to render_with_layout :application }
+    it { expect(call_request).to render_template :index }
+    it { expect(call_request.status).to eq 200 }
   end
 
   describe 'GET #show' do
@@ -26,5 +29,8 @@ describe TagsController, type: :controller do
     it 'exposes tag articles' do
       expect(assigns(:tag).articles).to eq [article]
     end
+    it { expect(call_request).to render_with_layout :application }
+    it { expect(call_request).to render_template :show }
+    it { expect(call_request.status).to eq 200 }
   end
 end
