@@ -1,11 +1,11 @@
 class CommentsController < ApplicationController
   # include ApplicationHelper
-  before_action :authorize, only: [:new, :edit, :update, :destroy]
+  before_action :authorize, only: [:new, :create, :edit, :update, :destroy]
 
-  def index
-    @article = Article.find(params[:article_id])
-    @comments = @article.comments
-  end
+  # def index
+  #   @article = Article.find(params[:article_id])
+  #   @comments = @article.comments
+  # end
 
   def destroy
     @comment = Comment.find(params[:id])
