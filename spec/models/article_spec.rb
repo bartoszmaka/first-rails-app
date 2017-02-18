@@ -4,6 +4,22 @@ RSpec.describe Article, type: :model do
   before(:each) do
     @article = build(:article)
   end
+  let(:user) { create(:user) }
+  let(:article) { create(:article, user: user) }
+  let(:comment) { create(:comment, user: user, article: article) }
+
+  describe 'vote by user' do
+    it 'expects to return vote' do
+      vote = create(:vote, user: user, votable: article, positive: true)
+      expect(article.vote_by_user(user)).to eq vote
+    end
+  end
+
+  describe 'author' do
+    it 'equals #user.name' do
+      expect(article.author).to eq(article.user.name)
+    end
+  end
 
   it 'sample should be valid' do
     expect(@article.valid?).to be true

@@ -5,6 +5,12 @@ RSpec.describe Comment, type: :model do
     @comment = build(:comment)
   end
 
+  describe 'author' do
+    it 'equals #user.name' do
+      expect(@comment.author).to eq(@comment.user.name)
+    end
+  end
+
   it 'should belong to user' do
     @comment.user = nil
     expect(@comment.valid?).to be false
