@@ -25,3 +25,6 @@
 
 # Ignore simplecov gem files
 /coverage
+
+# ignore coveralls.yml
+.coveralls.yml
