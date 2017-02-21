@@ -24,10 +24,53 @@ RSpec.describe Article, type: :model do
       create(:comment, article: article)
       expect(article.comments_count).to eq(old_comments_count + 1)
     end
-
     it 'should decrease comments_count by 1 after deleting comment' do
       comment.destroy
       expect(article.comments_count).to eq(old_comments_count - 1)
+    end
+  end
+
+  describe 'article tags =' do
+    context 'when creating article tags' do
+      it 'parses string to article votes' do
+        article.separated_tags = 'some, valid, tags'
+        article.reload
+        expect(article.tags).to include(Tag.find_by(name: 'some'))
+        expect(article.tags).to include(Tag.find_by(name: 'valid'))
+        expect(article.tags).to include(Tag.find_by(name: 'tags'))
+        expect(article.tags.count).to eq(3)
+      end
+      it 'ignores duplicated names' do
+        article.separated_tags = 'some, some, tags'
+        article.reload
+        expect(article.tags).to include(Tag.find_by(name: 'some'))
+        expect(article.tags).to include(Tag.find_by(name: 'tags'))
+        expect(article.tags.count).to eq(2)
+      end
+    end
+
+    context 'when changing article tags' do
+      before do
+        ArticleTag.create(article: article, tag: create(:tag, name: 'some'))
+        ArticleTag.create(article: article, tag: create(:tag, name: 'valid'))
+      end
+      it 'replaces old tags with new ones' do
+        article.separated_tags = 'some, valid, tags'
+        article.reload
+        expect(article.tags).to include(Tag.find_by(name: 'some'))
+        expect(article.tags).to include(Tag.find_by(name: 'valid'))
+        expect(article.tags).to include(Tag.find_by(name: 'tags'))
+        expect(article.tags.count).to eq(3)
+      end
+    end
+  end
+
+  describe 'article tags' do
+    it 'returns string of all article tags separated by comma' do
+      ArticleTag.create(article: article, tag: create(:tag, name: 'some'))
+      ArticleTag.create(article: article, tag: create(:tag, name: 'valid'))
+      ArticleTag.create(article: article, tag: create(:tag, name: 'tags'))
+      expect(article.separated_tags).to eq('some, valid, tags')
     end
   end
 
