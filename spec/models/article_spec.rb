@@ -1,12 +1,35 @@
 require 'rails_helper'
 
 RSpec.describe Article, type: :model do
-  before(:each) do
-    @article = build(:article)
-  end
   let(:user) { create(:user) }
   let(:article) { create(:article, user: user) }
-  let(:comment) { create(:comment, user: user, article: article) }
+  let(:vote) { create(:vote, votable: article, user: user, positive: true) }
+  describe 'article associations and validations' do
+    subject { create(:article) }
+    it { should be_valid }
+    it { should belong_to(:user) }
+    it { should have_many(:comments) }
+    it { should validate_length_of(:title).is_at_least(3).is_at_most(500) }
+    it { should validate_length_of(:content).is_at_least(5) }
+    it { should_not allow_value(nil).for(:title) }
+    it { should_not allow_value(nil).for(:content) }
+    it { should_not allow_value('').for(:title) }
+    it { should_not allow_value('').for(:content) }
+  end
+
+  describe 'article comments caching' do
+    let!(:comment) { create(:comment, article: article) }
+    let!(:old_comments_count) { article.comments_count }
+    it 'should increase comments_count by 1 after creating comment' do
+      create(:comment, article: article)
+      expect(article.comments_count).to eq(old_comments_count + 1)
+    end
+
+    it 'should decrease comments_count by 1 after deleting comment' do
+      comment.destroy
+      expect(article.comments_count).to eq(old_comments_count - 1)
+    end
+  end
 
   describe 'vote by user' do
     it 'expects to return vote' do
@@ -19,67 +42,5 @@ RSpec.describe Article, type: :model do
     it 'equals #user.name' do
       expect(article.author).to eq(article.user.name)
     end
-  end
-
-  it 'sample should be valid' do
-    expect(@article.valid?).to be true
-  end
-
-  it 'should belong to user' do
-    @article.user = nil
-    expect(@article.valid?).to be false
-  end
-
-  context 'when creating or deleting comment' do
-    before(:each) do
-      @comment = create(:comment, article: @article)
-      @old_comments_count = @article.comments_count
-    end
-
-    it 'should update comments_count after creating new comment' do
-      create(:comment, article: @article)
-      expect(@article.comments_count).to eq(@old_comments_count + 1)
-    end
-
-    it 'should update comments_count after deleting comment' do
-      @comment.destroy
-      expect(@article.comments_count).to eq(@old_comments_count - 1)
-    end
-  end
-
-  it 'content cant be blank' do
-    @article.content = ''
-    expect(@article.save).to be false
-  end
-
-  it 'validates content presence' do
-    @article.content = nil
-    expect(@article.valid?).to be false
-  end
-
-  it 'validates content minimum length' do
-    @article.content = 'a'
-    expect(@article.valid?).to be false
-  end
-
-  it 'title cant be blank' do
-    @article.title = ''
-    expect(@article.save).to be false
-  end
-
-  it 'validates title presence' do
-    @article.title = nil
-    expect(@article.valid?).to be false
-  end
-
-  it 'validates title minimum length' do
-    @article.title = 'a'
-    expect(@article.valid?).to be false
-  end
-
-  it 'validates title maximum length' do
-    long_title = 'a' * 1400
-    @article.title = long_title
-    expect(@article.valid?).to be false
   end
 end
