@@ -22,6 +22,8 @@
           </div>
         </div>
       </footer>
-    <%= debug(params) %>
+      <% if ENV['RAILS_ENV']=='development' %>
+        <%= debug(params) %>
+      <% end %>
   </body>
 </html>
