@@ -17,14 +17,14 @@ RSpec.describe Article, type: :model do
     it { should_not allow_value('').for(:content) }
   end
 
-  describe 'article comments caching' do
+  describe 'article comments counter_cache' do
     let!(:comment) { create(:comment, article: article) }
     let!(:old_comments_count) { article.comments_count }
-    it 'should increase comments_count by 1 after creating comment' do
+    it 'increases comments_count by 1 after creating comment' do
       create(:comment, article: article)
       expect(article.comments_count).to eq(old_comments_count + 1)
     end
-    it 'should decrease comments_count by 1 after deleting comment' do
+    it 'decreases comments_count by 1 after deleting comment' do
       comment.destroy
       expect(article.comments_count).to eq(old_comments_count - 1)
     end

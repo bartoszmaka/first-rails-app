@@ -1,65 +1,63 @@
 require 'rails_helper'
 
 RSpec.describe Vote, type: :model do
-  before(:each) do
-    @vote = build(:positive_article_vote)
-    @votable = @vote.votable
-    @positive_vote = create(:positive_article_vote, votable: @votable)
-    @negative_vote = create(:negative_article_vote, votable: @votable)
-    @old_score = @votable.score
+  describe 'vote' do
+    subject { create(:article_vote) }
+    it { should belong_to(:votable) }
+    it { should belong_to(:user) }
   end
 
-  it 'has valid factory' do
-    expect(@vote.valid?).to be true
+  describe '#upvote' do
+    let!(:article) { create(:article) }
+    let!(:old_score) { article.score }
+    context 'when votable had no vote from this user' do
+      it 'increases score by 1' do
+        v = build(:vote, votable: article)
+        v.upvote
+        v.save
+        expect(article.score).to eq(old_score + 1)
+      end
+    end
+    context 'when votable had positive vote from this user' do
+      it 'does not change score' do
+        v = create(:vote, votable: article, positive: true)
+        v.upvote
+        expect(article.score).to eq(old_score)
+      end
+    end
+    context 'when votable had negative vote from this user' do
+      it 'increases score by 2' do
+        v = create(:vote, votable: article, positive: false)
+        v.upvote
+        expect(article.score).to eq(old_score + 2)
+      end
+    end
   end
 
-  it 'belongs to votable' do
-    @vote.votable = nil
-    expect(@vote.valid?).to be false
-  end
-
-  it 'belongs to user' do
-    @vote.user = nil
-    expect(@vote.valid?).to be false
-  end
-
-  it 'increases votable score by 1 after upvoting new vote' do
-    @vote.upvote
-    expect(@votable.score).to eq(@old_score + 1)
-  end
-
-  it 'decreases votable score by 1 after downvoting new vote' do
-    @vote.downvote
-    expect(@votable.score).to eq(@old_score - 1)
-  end
-
-  it 'remains the same after upvoting positive vote' do
-    @positive_vote.upvote
-    expect(@votable.score).to eq(@old_score)
-  end
-
-  it 'remains the same after downvoting negative vote' do
-    @negative_vote.downvote
-    expect(@votable.score).to eq(@old_score)
-  end
-
-  it 'increases votable score by 2 after upvoting negative vote' do
-    @negative_vote.upvote
-    expect(@votable.score).to eq(@old_score + 2)
-  end
-
-  it 'decreases votable score by 2 after downvoting positive vote' do
-    @positive_vote.downvote
-    expect(@votable.score).to eq(@old_score - 2)
-  end
-
-  it 'decreases votable score by 1 after destroying positive vote' do
-    @positive_vote.destroy
-    expect(@votable.score).to eq(@old_score - 1)
-  end
-
-  it 'increases votable score by 1 after destroying negative vote' do
-    @negative_vote.destroy
-    expect(@votable.score).to eq(@old_score + 1)
+  describe '#downvote' do
+    let!(:article) { create(:article) }
+    let!(:old_score) { article.score }
+    context 'when votable had no vote from this user' do
+      it 'decreases score by 1' do
+        v = build(:vote, votable: article)
+        v.downvote
+        v.save
+        expect(article.score).to eq(old_score - 1)
+      end
+    end
+    context 'when votable had negative vote from this user' do
+      it 'does not change score' do
+        v = create(:vote, votable: article, positive: false)
+        v.downvote
+        expect(article.score).to eq(old_score)
+      end
+    end
+    context 'when votable had positive vote from this user' do
+      it 'decreases score by 2' do
+        v = create(:vote, votable: article, positive: true)
+        v.downvote
+        expect(article.score).to eq(old_score - 2)
+      end
+    end
   end
 end

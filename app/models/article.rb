@@ -24,12 +24,10 @@ class Article < ApplicationRecord
 
   def separated_tags=(string)
     return nil if string.nil? || string.match?(/[^a-z0-9 ,]/i)
-    # binding.pry
     tags.destroy_all
     string.strip.split(', ').each do |tag_name|
       t = Tag.find_or_create_by(name: tag_name)
       ArticleTag.find_or_create_by(article_id: id, tag_id: t.id) unless t.nil?
-      # ArticleTag.create(article: self, tag: t) unless t.nil?
     end
   end
 

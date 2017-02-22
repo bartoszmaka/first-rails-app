@@ -1,93 +1,48 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  before(:each) do
-    @user = build(:user)
+  describe 'user associations and validations' do
+    let(:user) { build(:user, password: nil) }
+    subject { user }
+    it { should have_many(:articles) }
+    it { should have_many(:comments) }
+    it { should have_many(:votes) }
+    it { should validate_presence_of(:name) }
+    it { should validate_length_of(:name).is_at_most(50) }
+    it { should validate_presence_of(:email) }
+    it { should validate_length_of(:email).is_at_most(255) }
+    it { should validate_uniqueness_of(:email).case_insensitive }
+    it { should validate_presence_of(:password) }
+    it { should validate_length_of(:password).is_at_least(6) }
+    it { should_not allow_value('        ').for(:password) }
+    it { should_not allow_value('        ').for(:email) }
   end
 
-  it 'should be valid' do
-    expect(@user.valid?).to be true
-  end
-
-  it 'should be unique' do
-    duplicated = @user.dup
-    duplicated.email = @user.email.upcase
-    @user.save
-    expect(duplicated.valid?).to be false
-  end
-
-  context 'articles_count' do
-    before(:each) do
-      @article = create(:article, user: @user)
-      @old_articles_count = @user.articles_count
+  describe 'articles count counter cache' do
+    let!(:user) { create(:user) }
+    let!(:article) { create(:article, user: user) }
+    let!(:old_articles_count) { user.articles_count }
+    it 'increases by 1 after creating article' do
+      create(:article, user: user)
+      expect(user.articles_count).to eq(old_articles_count + 1)
     end
-
-    it 'should increase after creating article' do
-      create(:article, user: @user)
-      expect(@user.articles_count).to eq(@old_articles_count + 1)
-    end
-
-    it 'should increase after creating article' do
-      @article.destroy
-      expect(@user.articles_count).to eq(@old_articles_count - 1)
-    end
-  end
-
-  context 'comments_count' do
-    before(:each) do
-      @comment = create(:comment, user: @user)
-      @old_comments_count = @user.comments_count
-    end
-
-    it 'should increase after creating comment' do
-      create(:comment, user: @user)
-      expect(@user.comments_count).to eq(@old_comments_count + 1)
-    end
-
-    it 'should increase after creating comment' do
-      @comment.destroy
-      expect(@user.comments_count).to eq(@old_comments_count - 1)
+    it 'decreases by 1 after destroying article' do
+      article.destroy
+      expect(user.articles_count).to eq(old_articles_count - 1)
     end
   end
 
-  it 'should require name' do
-    @user.name = '    '
-    expect(@user.valid?).to be false
-  end
-
-  it 'should require email' do
-    @user.email = '    '
-    expect(@user.valid?).to be false
-  end
-
-  it 'should not have too long name' do
-    @user.name = 'a' * 51
-    expect(@user.valid?).to be false
-  end
-
-  it 'should not have too long email' do
-    @user.email = 'a' * 244 + '@example.com'
-    expect(@user.valid?).to be false
-  end
-
-  it 'should accept valid email' do
-    valid_emails = %w(
-      user@example.com USER@foo.COM A_US-ER@foo.bar.org
-      forst.last@foo.jp alice+bob@baz.cn
-    )
-    valid_emails.each do |valid_email|
-      @user.email = valid_email
-      expect(@user.valid?).to be true
+  describe 'comments count counter cache' do
+    let!(:user) { create(:user) }
+    let!(:comment) { create(:comment, user: user) }
+    let!(:old_comments_count) { user.comments_count }
+    it 'increases by 1 after creating comment' do
+      create(:comment, user: user)
+      expect(user.comments_count).to eq(old_comments_count + 1)
     end
-  end
-
-  it 'should have nonblank password' do
-    @user.password = @user.password_confirmation = ' ' * 6
-    expect(@user.valid?).to be false
-  end
-
-  it 'should have long enough password' do
-    @user.password = @user.password_confirmation = 'a' * 4
-    expect(@user.valid?).to be false
+    it 'decreases by 1 after destroying comment' do
+      comment.destroy
+      expect(user.comments_count).to eq(old_comments_count - 1)
+    end
   end
 end

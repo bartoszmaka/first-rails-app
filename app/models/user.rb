@@ -15,21 +15,21 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 6 }
 
-  def voted?(given_votable, val=nil)
-    # temporary workaround
-    return false unless [Article, Comment].include? given_votable.class
-    unless val.nil?
-      !!(votes.find_by votable: given_votable, value: val)
-    else
-      !!(votes.find_by votable: given_votable)
-    end
-  end
+  # def voted?(given_votable, val=nil)
+  #   # temporary workaround
+  #   return false unless [Article, Comment].include? given_votable.class
+  #   unless val.nil?
+  #     !!(votes.find_by votable: given_votable, value: val)
+  #   else
+  #     !!(votes.find_by votable: given_votable)
+  #   end
+  # end
 
-  def voted_positive?(given_votable)
-    voted?(given_votable, true)
-  end
+  # def voted_positive?(given_votable)
+  #   voted?(given_votable, true)
+  # end
 
-  def voted_negative?(given_votable)
-    voted?(given_votable, false)
-  end
+  # def voted_negative?(given_votable)
+  #   voted?(given_votable, false)
+  # end
 end
