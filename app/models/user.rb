@@ -22,11 +22,19 @@ class User < ApplicationRecord
   end
 
   def ban
-    banned = Role.find_or_create_by(name: 'banned')
-    roles << banned unless roles.include? banned
+    add_role('banned')
   end
 
   def unban
-    roles.delete(Role.find_by(name: 'banned'))
+    remove_role('banned')
+  end
+
+  def add_role(role_name)
+    r = Role.find_or_create_by(name: role_name)
+    roles << r unless roles.include? r
+  end
+
+  def remove_role(role_name)
+    roles.delete(Role.find_by(name: role_name))
   end
 end
