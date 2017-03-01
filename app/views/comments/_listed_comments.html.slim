@@ -1,4 +1,4 @@
-  - @article.comments.reverse.each do |comment|
+  - @article.comments.order(updated_at: :desc).each do |comment|
     = render 'shared/vote_picker', votable: comment
     .row
       .col-sm-2
