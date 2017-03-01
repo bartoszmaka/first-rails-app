@@ -154,6 +154,16 @@ describe ArticlesController, type: :controller do
         it { expect(call_request.status).to eq 302 }
         it { expect(call_request).to redirect_to articles_path }
       end
+
+      context 'when user is an admin' do
+        let(:user) { create(:admin) }
+        let(:call_request) { delete :destroy, params: { id: article.id }, session: { user_id: user.id } }
+        it 'deletes article' do
+          expect { call_request }.to change(Article, :count).by(-1)
+        end
+        it { expect(call_request.status).to eq 302 }
+        it { expect(call_request).to redirect_to articles_path }
+      end
     end
 
     context 'when user is not authenticated' do
