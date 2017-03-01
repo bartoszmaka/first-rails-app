@@ -1,3 +1,7 @@
 - provide :header, "User"
 p Username: #{ @user.name }
 p Email: #{ @user.email }
+- if @user.roles
+  p user roles:
+  - @user.roles.pluck(:name).each do |role_name|
+    p = role_name
