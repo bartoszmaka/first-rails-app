@@ -17,8 +17,11 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }
 
   def admin?
-    r = roles.pluck(:name)
-    r.include?('admin') && !r.include?('banned')
+    has_role?('admin') && !has_role?('banned')
+  end
+
+  def banned?
+    has_role?('banned')
   end
 
   def ban
@@ -27,6 +30,10 @@ class User < ApplicationRecord
 
   def unban
     remove_role('banned')
+  end
+
+  def has_role?(role_name)
+    roles.pluck(:name).include?(role_name)
   end
 
   def add_role(role_name)
