@@ -40,7 +40,7 @@ RSpec.describe UsersController, type: :controller do
       it 'does not create new user' do
         expect { call_request }.to change(User, :count).by(0)
       end
-      it { expect(call_request).to redirect_to signup_path }
+      it { expect(call_request).to redirect_to new_user_path }
       it { expect(call_request.status).to eq 302 }
     end
   end

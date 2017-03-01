@@ -7,9 +7,12 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def authorize
-    flash[:danger] = 'You are banned' if current_user.banned?
-    flash[:danger] = 'You are not permitted to delete this article' unless current_user
-    redirect_to '/denied' if !current_user || current_user.banned?
+    if current_user&.banned?
+      flash[:danger] = 'You are banned' if current_user&.banned?
+      redirect_back(fallback_location: root_path)
+    elsif current_user.nil?
+      redirect_to '/denied' if !current_user || current_user.banned?
+    end
   end
 
   def current_user_owns?(whatever)

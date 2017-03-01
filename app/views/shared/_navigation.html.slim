@@ -8,7 +8,7 @@ nav.navbar.navbar-inverse
         li = link_to 'Log out', logout_path, method: :delete
       - else
         li = link_to 'Log in', '/login'
-        li = link_to 'Register', signup_path
+        li = link_to 'Register', new_user_path
       / li = link_to 'New Article', new_article_path
     / = render 'articles/article_buttons'
     - if params[:smart_buttons] || current_user

@@ -1,6 +1,7 @@
 - provide :header, 'Sign up'
-
-= form_for :user, url: register_path do |f|
+- if @user.errors.any?
+  = render 'form_errors'
+= form_for @user do |f|
   .form-group.col-sm-8
     = f.label :name, class: 'col-sm-4 control-label'
     = f.text_field :name, class: 'form-control'
