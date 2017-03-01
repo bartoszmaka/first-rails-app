@@ -11,18 +11,10 @@ nav.navbar.navbar-inverse
         li = link_to 'Register', signup_path
       / li = link_to 'New Article', new_article_path
     / = render 'articles/article_buttons'
-    - if params[:smart_buttons]
+    - if params[:smart_buttons] || current_user
       ul.nav.navbar-nav.navbar-right
-        - params[:smart_buttons].each do |button|
-          li = button
-
-
-/ - if params[:controller] == 'articles' and params[:action] == 'show'
-/     li = link_to 'Edit', edit_article_path
-/     li = link_to 'Delete', article_path, method: :delete
-
-
-
-/       / li = link_to 'Random Article', Article.rnd
-/       / li = link_to 'Random Article', article_path(random: true, id: nil)
-/       / li = link_to 'Random Article', controller: 'articles', action: 'show', random: true
+        - if params[:smart_buttons]
+            - params[:smart_buttons].each do |button|
+              li = button
+        - if current_user
+            li = link_to 'Profile', user_path(current_user)

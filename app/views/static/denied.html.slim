@@ -1,7 +1,8 @@
-.alert.alert-danger
-  strong You are not allowed to do that
-  p
-    | click #{ link_to 'here', '/login', class: 'alert-link' } to login
+- if current_user.nil?
+  .alert.alert-danger
+    strong You are not allowed to do that
+    p
+      | click #{ link_to 'here', '/login', class: 'alert-link' } to login
 
 .text-center
   = image_tag "deer"
