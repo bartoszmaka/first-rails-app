@@ -1,4 +1,5 @@
 - provide :header, "User"
+= image_tag @user.avatar.url, size: '100x100'
 p Username: #{ @user.name }
 p Email: #{ @user.email }
 - if @user.roles

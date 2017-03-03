@@ -13,6 +13,7 @@ gem 'coveralls', require: false
 gem 'ffaker'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
+gem 'paperclip', '~> 5.0.0'
 gem 'pg'
 gem 'pry'
 gem 'pry-rails'
