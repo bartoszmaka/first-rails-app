@@ -1,13 +1,19 @@
 - provide :header, "Article page"
 
-h3
-  = @article.title
-  small
-    p
-      | Author:
-      =< link_to @article.author, user_path(@article.user)
-
-= render 'shared/vote_picker', votable: @article
+.row
+  .col-sm-2
+    = render 'shared/vote_picker', votable: @article
+  .col-sm-10
+    h3
+      = @article.title
+.row
+  .col-sm-2
+    h3
+      small
+        p
+          | Author:
+          =< link_to @article.author, user_path(@article.user)
+  = image_tag @article.user.avatar.url, size: '100x100'
 
 h4 = @article.content
 

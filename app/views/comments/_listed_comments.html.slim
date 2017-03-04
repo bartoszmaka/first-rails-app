@@ -1,10 +1,16 @@
   - @article.comments.order(updated_at: :desc).each do |comment|
-    = render 'shared/vote_picker', votable: comment
-    .row
-      .col-sm-2
-        b.text-left = link_to comment.author, user_path(comment.user)
-      .col-sm-10
-        p = comment.content
-        p.text-right
-          = link_to 'Edit Comment', edit_article_comment_path(@article, comment), class: 'btn btn-default'
-          = link_to 'Delete Comment', article_comment_path(@article, comment), method: :delete, class: 'btn btn-default'
+    / br
+    .container
+      .row
+        .col-sm-2
+          = render 'shared/vote_picker', votable: comment
+          b = link_to comment.author, user_path(comment.user)
+        .col-sm-2
+          = link_to 'Edit', edit_article_comment_path(@article, comment), class: 'btn btn-default'
+          = link_to 'Delete', article_comment_path(@article, comment), method: :delete, class: 'btn btn-default'
+      .row
+        .col-sm-2
+          = image_tag comment.user.avatar.url, size: '64x64'
+          / = image_tag comment.user.avatar.url, size: '100x100'
+        .col-sm-10
+          p = comment.content
