@@ -1,8 +1,12 @@
 - provide :header, "User"
-= image_tag @user.avatar.url, size: '100x100'
-p Username: #{ @user.name }
-p Email: #{ @user.email }
-- if @user.roles
-  p user roles:
-  - @user.roles.pluck(:name).each do |role_name|
-    p = role_name
+.container-fluid
+  .row.justify-content-start
+    .col-3
+      = image_tag @user.avatar.url, size: '100x100', class: 'd-flex mr-3'
+      .col-9
+          h5.mt-0 Username: #{ @user.name }
+          p Email: #{ @user.email }
+          / - if @user.roles
+            p user roles:
+            - @user.roles.pluck(:name).each do |role_name|
+              p = role_name

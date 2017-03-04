@@ -29,10 +29,11 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
-    # @user.update_attributes(avatar: user_update_params)
-    # binding.pry
-    @user.avatar = params[:user][:avatar]
+    @user = User.update(params[:id], user_update_params)
+    if @user.password == params[:user][:old_password] &&
+       params[:user][:password] == params[:user][:password_confirmation]
+      @user.password = params[:user][:password]
+    end
     if @user.save
       flash[:success] = 'Profile succesfully updated'
       redirect_to @user
@@ -49,6 +50,6 @@ class UsersController < ApplicationController
   end
 
   def user_update_params
-    params.require(:user).permit(:avatar)
+    params.require(:user).permit(:name, :email, :old_password, :password, :password_confirmation, :avatar)
   end
 end

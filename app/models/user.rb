@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :comments_voted_on, through: :votes, source: :votable, source_type: 'Comment'
   has_and_belongs_to_many :roles, join_table: :user_roles
 
+  attr_accessor :old_password
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   has_secure_password

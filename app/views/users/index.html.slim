@@ -2,7 +2,7 @@ table.table.table-striped.table-bordered.table-condensed
   tr
     th Avatar
     th Name
-    th Admin
+    th Status
     th Email
     th Comments
     th Articles
@@ -10,10 +10,13 @@ table.table.table-striped.table-bordered.table-condensed
     tr
       td = image_tag user.avatar.url, size: '50x50'
       td = user.name
-      - if user.admin?
-        td.bg-success = user.admin?
+      - case
+      - when user.banned?
+        td.bg-danger banned
+      - when user.admin?
+        td.bg-success admin
       - else
-        td = user.admin?
+        td user
       td = user.email
       td = user.comments_count
       td = user.articles_count
