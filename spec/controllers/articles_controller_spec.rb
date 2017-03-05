@@ -57,6 +57,16 @@ describe ArticlesController, type: :controller do
       end
     end
 
+    context 'when user is banned' do
+      let(:user) { create(:user) }
+      let(:call_request) { get :new, session: { user_id: user.id } }
+      before do
+        user.ban
+        call_request
+      end
+      it { is_expected.to respond_with :found }
+    end
+
     context 'when user is not authenticated' do
       let(:call_request) { get :new, session: { user_id: nil } }
       it { expect(call_request.status).to eq 302 }

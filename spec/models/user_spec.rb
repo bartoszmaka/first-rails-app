@@ -45,4 +45,64 @@ RSpec.describe User, type: :model do
       expect(user.comments_count).to eq(old_comments_count - 1)
     end
   end
+
+  describe 'user roles management' do
+    let(:user) { create(:user) }
+    context '#add_role' do
+      it 'adds role' do
+        user.add_role('tester')
+        expect(user.roles.pluck(:name).count).to eq(1)
+      end
+    end
+
+    context '#has_role?' do
+      it 'tells if user has given role' do
+        user.ban
+        expect(user.has_role?('banned')).to(be true)
+      end
+    end
+
+    context '#remove_role' do
+      it 'deletes given role if it exists' do
+        user.ban
+        user.remove_role('banned')
+        expect(user.roles).to eq []
+      end
+    end
+
+    context '#ban' do
+      it 'adds banned role to user' do
+        user.ban
+        expect(user.roles).to eq [Role.find_by(name: 'banned')]
+      end
+    end
+
+    context '#unban' do
+      it 'removes banned role from user if it exists' do
+        user.add_role('banned')
+        user.unban
+        expect(user.roles).to eq []
+      end
+    end
+
+    context '#admin?' do
+      it 'tells if user is an admin' do
+        user.add_role('admin')
+        expect(user.admin?).to be true
+      end
+    end
+
+    context '#banned?' do
+      it 'tells if user is banned' do
+        user.add_role('admin')
+        user.ban
+        expect(user.banned?).to be true
+      end
+    end
+  end
+
+  describe 'admin factory' do
+    let(:admin) { create(:admin) }
+    it { expect(admin.admin?).to be true }
+  end
 end

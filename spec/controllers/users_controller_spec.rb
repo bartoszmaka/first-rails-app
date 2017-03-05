@@ -1,6 +1,22 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
+  describe 'GET #index' do
+    let(:call_request) { get :index }
+    before { call_request }
+    it { is_expected.to render_with_layout :application }
+    it { is_expected.to render_template :index }
+    it { is_expected.to respond_with :ok }
+  end
+
+  # describe 'GET #edit' do
+  #   let(:call_request) { get :index }
+  #   before { call_request }
+  #   it { is_expected.to render_with_layout :application }
+  #   it { is_expected.to render_template :edit }
+  #   it { is_expected.to respond_with :ok }
+  # end
+
   describe 'GET #show' do
     let!(:user) { create(:user) }
     let(:call_request) { get :show, params: { id: user.id } }
