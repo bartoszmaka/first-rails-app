@@ -12,3 +12,7 @@
           = f.password_field :password, class: 'form-control'
         .form-group
           = f.submit 'Log in', class: 'btn btn-success btn-lg btn-block'
+
+  .col-sm-4
+    p New user?
+    =< link_to "Register", new_user_path, class: 'btn btn-primary'

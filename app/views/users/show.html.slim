@@ -40,7 +40,7 @@
 hr
 .well style='background-color: #cccccc'
   h4 Latest activity
-  - if @latest_activity.nil?
+  - if @latest_activity.empty?
     p You have no activity! come on, write something
   - else
     - @latest_activity[0...5].each do |resource|
