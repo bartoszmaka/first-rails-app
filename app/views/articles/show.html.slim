@@ -1,24 +1,26 @@
 - provide :header, "Article page"
-
 .row
-  .col-sm-2
-    = render 'shared/vote_picker', votable: @article
+  .col-sm-1
+    = link_to(image_tag(@article.user.avatar.url, size: '60x60', style: 'margin-top: 20px'), user_path(@article.user))
   .col-sm-10
-    h3
+    h1
       = @article.title
-.row
-  .col-sm-2
-    h3
+      br
       small
-        p
-          | Author:
-          =< link_to @article.author, user_path(@article.user)
-  = image_tag @article.user.avatar.url, size: '100x100'
-
-h4 = @article.content
-
+        | By
+        =< link_to @article.author, user_path(@article.user)
+  .col-sm-1
+    = render 'shared/vote_picker', votable: @article
+hr
+p
+  | Posted on
+  =< @article.created_at
+hr
 = render 'article_tags'
+hr
 
-h3 Comments:
-= render 'comments/listed_comments'
+p.lead
+  = @article.content
+
 = render 'comments/form'
+= render 'comments/listed_comments'

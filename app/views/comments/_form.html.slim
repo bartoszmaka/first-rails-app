@@ -1,9 +1,10 @@
-= form_for ([@article, @comment]) do |f|
-  - if @comment.errors.any?
-    = render 'form_errors'
-  .form-group
-    p = f.label :content
-    = f.text_area :content, class: 'form-control', rows: '4'
-  .form-group
-    br = f.submit 'Create', class: 'btn btn-default'
+.container
+  = form_for ([@article, @comment]) do |f|
+    - if @comment.errors.any?
+      = render 'form_errors'
+    .form-group.col-sm-8
+      h4 = f.label :Comment, class: 'col-sm-8 control-label'
+      = f.text_area :content, class: 'form-control', rows: '4'
+    .form-group.col-sm-8
+      = f.submit 'Create', class: 'btn btn-primary'
 
