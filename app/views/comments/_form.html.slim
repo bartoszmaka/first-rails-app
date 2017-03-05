@@ -1,11 +1,11 @@
 hr
-.well
+.well style='background-color: #dddddd'
   h4 Comment
   = form_for ([@article, @comment]) do |f|
     - if @comment.errors.any?
       = render 'form_errors'
     .form-group
-      = f.text_area :content, class: 'form-control', rows: '4'
+      = f.text_area :content, class: 'form-control', rows: '3', placeholder: 'What do you think?'
     .form-group
-      = f.submit 'Create', class: 'btn btn-primary'
+      = f.submit 'Comment!', class: 'btn btn-primary'
 

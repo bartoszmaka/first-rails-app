@@ -19,4 +19,5 @@ class ApplicationController < ActionController::Base
     false if current_user.banned?
     current_user == whatever.user || current_user.admin?
   end
+  helper_method :current_user_owns?
 end

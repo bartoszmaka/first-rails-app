@@ -1,6 +1,6 @@
-p
+p.pull-right
   | score:
-  =< votable.score
+  =<> votable.score
   - case votable.votes.by_user(current_user)&.positive
   - when true
     = link_to '+', votable_votes_path(votable, votable_type: votable.class), class: 'btn btn-success', method: :delete

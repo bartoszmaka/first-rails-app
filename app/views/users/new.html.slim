@@ -1,24 +1,26 @@
 - provide :header, 'Sign up'
 - if @user.errors.any?
   = render 'form_errors'
-= form_for @user do |f|
-  .form-group.col-sm-8
-    = f.label :name, class: 'col-sm-4 control-label'
-    = f.text_field :name, class: 'form-control'
-  .form-group.col-sm-8
-    = f.label :email, class: 'col-sm-4 control-label'
-    = f.email_field :email, class: 'form-control'
-  .form-group.col-sm-8
-    = f.label :password, class: 'col-sm-4 control-label'
-    = f.password_field :password, class: 'form-control'
-  .form-group.col-sm-8
-    = f.label :password_confirmation, class: 'col-sm-4 control-label'
-    = f.password_field :password_confirmation, class: 'form-control'
-  .form-group.col-sm-8
-    = f.submit 'Register', class: 'btn btn-default'
+.row
+  .col-sm-4.col-sm-offset-4
+    .well style='padding-bottom: 0px'
+      = form_for @user do |f|
+        .form-group
+          = f.label :name, class: 'control-label'
+          = f.text_field :name, class: 'form-control'
+        .form-group
+          = f.label :email, class: 'control-label'
+          = f.email_field :email, class: 'form-control'
+        .form-group
+          = f.label :password, class: 'control-label'
+          = f.password_field :password, class: 'form-control'
+        .form-group
+          = f.label :password_confirmation, class: 'control-label'
+          = f.password_field :password_confirmation, class: 'form-control'
+        .form-group
+          = f.submit 'Register', class: 'btn btn-primary btn-lg btn-block'
 
-.col-sm-offset-2
-  p already registered?
-  .btn.btn-default
-    =< link_to "log in", login_path
+  .col-sm-4
+    p already registered?
+    =< link_to "log in", login_path, class: 'btn btn-default'
 

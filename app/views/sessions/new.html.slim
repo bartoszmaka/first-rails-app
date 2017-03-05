@@ -1,11 +1,14 @@
 - provide :header, 'Log in'
 
-= form_for(:session, url: login_path) do |f|
-  .form-group.col-sm-8
-    = f.label :email, class: 'col-sm-4 control-label'
-    = f.email_field :email, class: 'form-control'
-  .form-group.col-sm-8.
-    = f.label :password, class: 'col-sm-4 control-label'
-    = f.password_field :password, class: 'form-control'
-  .form-group.col-sm-8.
-    = f.submit 'Log in', class: 'btn btn-default'
+.row
+  .col-sm-4.col-sm-offset-4
+    .well style='padding-bottom: 0px'
+      = form_for(:session, url: login_path) do |f|
+        .form-group
+          = f.label :email, class: 'control-label'
+          = f.email_field :email, class: 'form-control'
+        .form-group
+          = f.label :password, class: 'control-label'
+          = f.password_field :password, class: 'form-control'
+        .form-group
+          = f.submit 'Log in', class: 'btn btn-success btn-lg btn-block'
