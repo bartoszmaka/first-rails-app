@@ -26,6 +26,14 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
+  def recent_resources(time)
+    recent = []
+    recent << articles.where('updated_at > ?', time)
+    recent << comments.where('updated_at > ?', time)
+    # recent << votes.where('updated_at > ?', time)
+    recent.flatten.sort_by(&:updated_at)
+  end
+
   def admin?
     has_role?('admin') && !has_role?('banned')
   end

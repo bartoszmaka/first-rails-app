@@ -2,14 +2,14 @@
 .row
   .col-sm-1
     = link_to(image_tag(@article.user.avatar.url, size: '60x60', style: 'margin-top: 20px'), user_path(@article.user))
-  .col-sm-10
+  .col-sm-9
     h1
       = @article.title
       br
       small
         | By
         =< link_to @article.author, user_path(@article.user)
-  .col-sm-1
+  .col-sm-2 style='margin-top: 20px'
     = render 'shared/vote_picker', votable: @article
 hr
 p

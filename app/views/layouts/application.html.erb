@@ -11,16 +11,17 @@
   <body>
     <%= render 'shared/navigation'%>
     <div class='container'>
-      <%# <h1 style='margin-top: 0px'><%= yield(:header) %1></h1> %>
-      <%= render 'shared/flash_messages' %>
-      <%= yield %>
-    </div>
-    <% if ENV['RAILS_ENV']=='development' %>
-      <div class='container'>
-        <footer>
-          <%= debug(params) %>
-        </footer>
+      <div class='row'>
+        <div class='col-sm-9'>
+          <%= render 'shared/flash_messages' %>
+          <%= yield %>
+          <% if ENV['RAILS_ENV']=='development' %>
+              <footer>
+                <%= debug(params) %>
+              </footer>
+          <% end %>
+        </div>
       </div>
-    <% end %>
+    </div>
   </body>
 </html>

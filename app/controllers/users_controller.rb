@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @latest_activity = @user.recent_resources(7.days.ago)
   end
 
   def new

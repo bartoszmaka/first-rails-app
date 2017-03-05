@@ -1,10 +1,11 @@
-.container
+hr
+.well
+  h4 Comment
   = form_for ([@article, @comment]) do |f|
     - if @comment.errors.any?
       = render 'form_errors'
-    .form-group.col-sm-8
-      h4 = f.label :Comment, class: 'col-sm-8 control-label'
+    .form-group
       = f.text_area :content, class: 'form-control', rows: '4'
-    .form-group.col-sm-8
+    .form-group
       = f.submit 'Create', class: 'btn btn-primary'
 
