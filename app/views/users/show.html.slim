@@ -46,7 +46,7 @@ hr
     - @latest_activity[0...5].each do |resource|
       - if resource.is_a? Comment
         h4: small Comment | Article title:
-        =< link_to truncate(resource.article.content, length: 60, separator: ' '), article_path(resource.article)
+        =< link_to truncate(resource.article.title, length: 60, separator: ' '), article_path(resource.article)
       - elsif resource.is_a? Article
         h4: small Article | Article title:
-        =< link_to truncate(resource.content, length: 60, separator: ' '), article_path(resource)
+        =< link_to truncate(resource.title, length: 60, separator: ' '), article_path(resource)

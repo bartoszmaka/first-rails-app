@@ -18,9 +18,9 @@
                 .pull-left
                   - if current_user_owns? comment
                     .bottom-align-text
-                      = link_to edit_article_comment_path([@article, comment]), class: 'btn btn-default btn-sm' do
+                      = link_to edit_article_comment_path(@article, comment), class: 'btn btn-default btn-sm' do
                         span.glyphicon.glyphicon-pencil
-                      = link_to article_comment_path([@article, comment]), method: :delete, class: 'btn btn-default btn-sm' do
+                      = link_to article_comment_path(@article, comment), method: :delete, class: 'btn btn-default btn-sm' do
                         span.glyphicon.glyphicon-trash
                 .pull-right
                   = render 'shared/vote_picker', votable: comment
