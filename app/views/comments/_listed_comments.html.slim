@@ -1,22 +1,29 @@
   - @article.comments.order(updated_at: :desc).each do |comment|
     hr
-    .media
-      = link_to(image_tag(comment.user.avatar.url, size: '64x64', class: 'media-object'),
-                user_path(comment.user), class: 'pull-left')
-      .media-body
-        .row
-          .col-sm-6
-            h4.media-heading
-              = link_to comment.author, user_path(comment.user)
-              small
-                =< comment.created_at
-          .col-sm-4.col-sm-offset-2
-            - if current_user_owns? comment
-              .pull-left
-                = link_to edit_article_comment_path([@article, comment]), class: 'btn btn-default' do
-                  span.glyphicon.glyphicon-pencil
-                = link_to article_comment_path([@article, comment]), method: :delete, class: 'btn btn-default' do
-                  span.glyphicon.glyphicon-trash
-            .pull-right
-              = render 'shared/vote_picker', votable: comment
-        = comment.content
+    .row
+      .media
+        .col-md-1.col-xs-1
+          = link_to(image_tag(comment.user.avatar.url, size: '64x64', class: 'media-object'),
+                    user_path(comment.user), class: 'pull-left')
+        .col-xs-11.col-md-11 style='padding-left: 20px;'
+          .media-body
+            .row
+              .col-sm-8
+                h4.media-heading style='margin-top: 0px; margin-bottom: 0px;'
+                  = link_to comment.author, user_path(comment.user)
+                h4 style='margin-top: 0px; margin-bottom: 0px;'
+                  small
+                    =< comment.created_at
+              .col-sm-4
+                .pull-left
+                  - if current_user_owns? comment
+                    .bottom-align-text
+                      = link_to edit_article_comment_path([@article, comment]), class: 'btn btn-default btn-sm' do
+                        span.glyphicon.glyphicon-pencil
+                      = link_to article_comment_path([@article, comment]), method: :delete, class: 'btn btn-default btn-sm' do
+                        span.glyphicon.glyphicon-trash
+                .pull-right
+                  = render 'shared/vote_picker', votable: comment
+            .row
+              .col-sm-12
+                = comment.content

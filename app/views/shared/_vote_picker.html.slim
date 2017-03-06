@@ -13,5 +13,7 @@ p.pull-right
       = link_to '+', votable_votes_path(votable, votable_type: votable.class, positive: true), class: 'btn btn-default', method: :post
       = link_to '-', votable_votes_path(votable, votable_type: votable.class), class: 'btn btn-default', method: :post
     - else
-      .btn.btn-default disabled='disabled' +
-      .btn.btn-default disabled='disabled' -
+      a disabled='true' class='btn btn-default'
+        | +
+      a disabled='true' class='btn btn-default'
+        | -

@@ -1,6 +1,6 @@
-- if @article.tags.any?
+- if article.tags.any?
   h5> Tags:
   .row
     .col-sm-12
-      - @article.tags.each do |tag|
+      - article.tags.each do |tag|
         = link_to tag.name, tag_path(tag), class: 'btn btn-default'
