@@ -3,17 +3,35 @@ p.pull-right
   =<> votable.score
   - case votable.votes.by_user(current_user)&.positive
   - when true
-    = link_to '+', votable_votes_path(votable, votable_type: votable.class), class: 'btn btn-success', method: :delete
-    = link_to '-', votable_votes_path(votable, votable_type: votable.class), class: 'btn btn-default', method: :patch
+    = link_to votable_votes_path(votable, votable_type: votable.class),
+      class: 'btn btn-success btn-sm',
+      method: :delete do
+      span.glyphicon.glyphicon-plus
+    = link_to votable_votes_path(votable, votable_type: votable.class),
+      class: 'btn btn-default btn-sm',
+      method: :patch do
+      span.glyphicon.glyphicon-minus
   - when false
-    = link_to '+', votable_votes_path(votable, votable_type: votable.class), class: 'btn btn-default', method: :patch
-    = link_to '-', votable_votes_path(votable, votable_type: votable.class), class: 'btn btn-success', method: :delete
+    = link_to votable_votes_path(votable, votable_type: votable.class),
+      class: 'btn btn-default btn-sm',
+      method: :patch do
+      span.glyphicon.glyphicon-plus
+    = link_to votable_votes_path(votable, votable_type: votable.class),
+      class: 'btn btn-success btn-sm',
+      method: :delete do
+      span.glyphicon.glyphicon-minus
   - when nil
     - if current_user
-      = link_to '+', votable_votes_path(votable, votable_type: votable.class, positive: true), class: 'btn btn-default', method: :post
-      = link_to '-', votable_votes_path(votable, votable_type: votable.class), class: 'btn btn-default', method: :post
+      = link_to votable_votes_path(votable, votable_type: votable.class, positive: true),
+        class: 'btn btn-default btn-sm',
+        method: :post do
+        span.glyphicon.glyphicon-plus
+      = link_to votable_votes_path(votable, votable_type: votable.class),
+        class: 'btn btn-default btn-sm',
+        method: :post do
+        span.glyphicon.glyphicon-minus
     - else
-      a disabled='true' class='btn btn-default'
-        | +
-      a disabled='true' class='btn btn-default'
-        | -
+      a disabled='true' class='btn btn-default btn-sm'
+        span.glyphicon.glyphicon-plus
+      a disabled='true' class='btn btn-default btn-sm'
+        span.glyphicon.glyphicon-minus

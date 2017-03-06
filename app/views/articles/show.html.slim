@@ -1,26 +1,33 @@
 - provide :header, "Article page"
 .row
-  .col-sm-1
-    = link_to(image_tag(@article.user.avatar.url, size: '60x60', style: 'margin-top: 20px'), user_path(@article.user))
-  .col-sm-8
-    h1
-      = @article.title
-      br
-      small
-        | By
-        =< link_to @article.author, user_path(@article.user)
-  .col-sm-3 style='margin-top: 20px'
-    = render 'shared/vote_picker', votable: @article
-hr
-p
-  | Posted on
-  =< @article.created_at
-hr
-= render 'article_tags', article: @article
-hr
-
-p.lead
-  = @article.content
+  .col-sm-12
+    .well
+      .row
+        .col-sm-1
+          = link_to user_path(@article.user) do
+            = image_tag(@article.user.avatar.url, size: '60x60', style: 'margin-top: 20px')
+        .col-sm-8
+          h2
+            = @article.title
+            br
+            small
+              | By
+              =< link_to @article.author, user_path(@article.user)
+        .col-sm-3 style='margin-top: 20px'
+          = render 'shared/vote_picker', votable: @article
+      .row
+        .col-sm-12
+          hr style='margin: 5px 0px 0px 0px;'
+          h3 style='margin: 0px 0px 0px 0px;'
+            small
+              | Posted on
+              span style='color: rgb(51, 51, 51)' =< @article.created_at
+      .row
+        .col-sm-12
+          hr style='margin: 5px 0px 5px 0px'
+          = render 'articles/article_tags', article: @article, smaller: true
+      p.lead
+        = @article.content
 
 = render 'comments/form'
 = render 'comments/listed_comments'
