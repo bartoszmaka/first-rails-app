@@ -23,30 +23,7 @@
             = link_to edit_user_path(current_user), class: 'btn btn-default' do
               span.glyphicon.glyphicon-pencil
     .row
-      .col-sm-8
-        h4: small archivements: (not implemented yet)
-        .media.col-sm-4
-          = image_tag 'http://placehold.it/64x64', class: 'pull-left media-object'
-        .media.col-sm-4
-          = image_tag 'http://placehold.it/64x64', class: 'pull-left media-object'
-        .media.col-sm-4
-          = image_tag 'http://placehold.it/64x64', class: 'pull-left media-object'
-        .media.col-sm-4
-          = image_tag 'http://placehold.it/64x64', class: 'pull-left media-object'
-        .media.col-sm-4
-          = image_tag 'http://placehold.it/64x64', class: 'pull-left media-object'
-        .media.col-sm-4
-          = image_tag 'http://placehold.it/64x64', class: 'pull-left media-object'
+      .col-sm-12
+        = render 'archivements'
 hr
-.well style='background-color: #cccccc'
-  h4 Latest activity
-  - if @latest_activity.empty?
-    p You have no activity! come on, write something
-  - else
-    - @latest_activity[0...5].each do |resource|
-      - if resource.is_a? Comment
-        h4: small Comment | Article title:
-        =< link_to truncate(resource.article.title, length: 60, separator: ' '), article_path(resource.article)
-      - elsif resource.is_a? Article
-        h4: small Article | Article title:
-        =< link_to truncate(resource.title, length: 60, separator: ' '), article_path(resource)
+= render 'latest_activity'

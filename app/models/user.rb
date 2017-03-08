@@ -5,6 +5,8 @@ class User < ApplicationRecord
   has_many :articles_voted_on, through: :votes, source: :votable, source_type: 'Article'
   has_many :comments_voted_on, through: :votes, source: :votable, source_type: 'Comment'
   has_and_belongs_to_many :roles, join_table: :user_roles
+  has_many :user_archivements
+  has_many :archivements, through: :user_archivements
 
   attr_accessor :old_password
 
@@ -14,11 +16,11 @@ class User < ApplicationRecord
   has_attached_file :avatar,
                     styles: { medium: '300x300>', thumb: '100x100' },
                     default_url: 'avatars/missing.png'
-                    # path: ':rails_root/app/asserts/images/avatars'
 
   before_save { self.email = email.downcase }
+  after_create { archivements << Archivement.find_or_create_by(name: 'Blogger') }
 
-  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
+  validates_attachment_content_type :avatar, content_type: %r{\Aimage\/.*\z}
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, presence: true,
                     length: { maximum: 255 },
@@ -30,16 +32,15 @@ class User < ApplicationRecord
     recent = []
     recent << articles.where('updated_at > ?', time)
     recent << comments.where('updated_at > ?', time)
-    # recent << votes.where('updated_at > ?', time)
     recent.flatten.sort_by(&:updated_at)
   end
 
   def admin?
-    has_role?('admin') && !has_role?('banned')
+    role?('admin') && !role?('banned')
   end
 
   def banned?
-    has_role?('banned')
+    role?('banned')
   end
 
   def ban
@@ -50,7 +51,7 @@ class User < ApplicationRecord
     remove_role('banned')
   end
 
-  def has_role?(role_name)
+  def role?(role_name)
     roles.pluck(:name).include?(role_name)
   end
 
