@@ -18,6 +18,25 @@ RSpec.describe User, type: :model do
     it { should_not allow_value('        ').for(:email) }
   end
 
+  describe 'user fatory' do
+    context 'user' do
+      let(:user) { build(:user) }
+      it { expect(user).to be_valid }
+    end
+
+    context 'admin' do
+      let(:user) { create(:admin) }
+      it { expect(user).to be_valid }
+      it { expect(user.roles.pluck(:name)).to eq(['admin']) }
+    end
+
+    context 'user_with_avatar' do
+      let(:user) { build(:user_with_avatar) }
+      it { expect(user).to be_valid }
+      it { expect(user.avatar).not_to be nil }
+    end
+  end
+
   describe 'articles count counter cache' do
     let!(:user) { create(:user) }
     let!(:article) { create(:article, user: user) }
@@ -55,10 +74,10 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context '#has_role?' do
+    context '#role?' do
       it 'tells if user has given role' do
         user.ban
-        expect(user.has_role?('banned')).to(be true)
+        expect(user.role?('banned')).to(be true)
       end
     end
 

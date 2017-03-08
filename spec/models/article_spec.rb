@@ -17,6 +17,11 @@ RSpec.describe Article, type: :model do
     it { should_not allow_value('').for(:content) }
   end
 
+  describe '#votes.by_user' do
+    subject { article.votes.by_user(user) }
+    it { should eq(vote) }
+  end
+
   describe 'article comments counter_cache' do
     let!(:comment) { create(:comment, article: article) }
     let!(:old_comments_count) { article.comments_count }
