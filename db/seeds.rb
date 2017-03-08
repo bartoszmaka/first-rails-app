@@ -1,47 +1,53 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
-# generate 10 users
+puts 'Users, Tags and Archivements'
 10.times do
-  User.create(
-    name: FFaker::Internet.user_name,
-    email: FFaker::Internet.safe_email,
-    password: '123456',
-    password_confirmation: '123456'
-  )
-end
-
-# generate up to 11 articles for each user
-User.all.each do |user|
-  rand(0..11).times do
-    user.articles.create(title: FFaker::CheesyLingo.title, content: FFaker::Lorem.paragraph)
+  FactoryGirl.create(:user)
+  3.times do
+    FactoryGirl.create(:tag)
+    FactoryGirl.create(:archivement)
   end
 end
 
-# generate up to 30 tags
-30.times do
-  Tag.create(name: FFaker::CheesyLingo.word)
-end
-
-# generate 3..11 comments for each article
-Article.all.each do |article|
-  rand(3..11).times do
-    user = User.order('RANDOM()').limit(1)
-    Comment.create do |c|
-      c.content = FFaker::CheesyLingo.paragraph
-      c.article = article
-      c.user = user.first
-    end
-  end
-
-  # pin 1 to 4 tags to each article
-  tags = Tag.all.sample(rand(1..4)).uniq
-  tags.each do |tag|
-    ArticleTag.create(article_id: article.id, tag_id: tag.id)
+puts 'Articles and UserArchivements'
+User.find_each do |user|
+  a = Archivement.order('RANDOM()').limit(rand(1..4))
+  user.archivements << a
+  rand(1..11).times do
+    FactoryGirl.create(:article, user: user)
   end
 end
+
+puts 'ArticleTags and Comments'
+Article.find_each do |article|
+  t = Tag.order('RANDOM()').limit(rand(1..4))
+  article.tags << t
+  rand(1..11).times do
+    user = User.order('RANDOM()').limit(1).first
+    FactoryGirl.create(:comment, user: user, article: article)
+  end
+end
+
+puts 'Votes'
+User.find_each do |user|
+  print '.'
+  Article.order('RANDOM()').limit((Article.count * 0.7).round).each do |article|
+    vote = Vote.new(user: user, votable: article)
+    rand(1..3).odd? ? vote.upvote : vote.downvote
+    vote.save
+  end
+  Comment.order('RANDOM()').limit((Comment.count * 0.6).round).each do |comment|
+    vote = Vote.new(user: user, votable: comment)
+    rand(1..5).odd? ? vote.upvote : vote.downvote
+    vote.save
+  end
+end
+
+puts "\nAvatars"
+User.find_each do |user|
+  if rand(1..5).odd?
+    user.update_attributes(avatar: FFaker::Avatar.image)
+    print '#'
+  else
+    print '.'
+  end
+end
+puts "\ndone"

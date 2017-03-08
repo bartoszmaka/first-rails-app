@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :article_tag do
-    association :article, strategy: :create
-    association :tag, strategy: :create
+    association :article
+    association :tag
   end
 end

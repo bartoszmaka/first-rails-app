@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170302164406) do
+ActiveRecord::Schema.define(version: 20170307113909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "archivements", force: :cascade do |t|
+    t.string   "name",                          null: false
+    t.text     "description"
+    t.integer  "users_count",       default: 0
+    t.string   "icon_file_name"
+    t.string   "icon_content_type"
+    t.integer  "icon_file_size"
+    t.datetime "icon_updated_at"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.index ["name"], name: "index_archivements_on_name", using: :btree
+  end
 
   create_table "article_tags", force: :cascade do |t|
     t.integer "article_id"
@@ -52,6 +65,13 @@ ActiveRecord::Schema.define(version: 20170302164406) do
     t.integer  "articles_count", default: 0
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+  end
+
+  create_table "user_archivements", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "archivement_id"
+    t.index ["archivement_id"], name: "index_user_archivements_on_archivement_id", using: :btree
+    t.index ["user_id"], name: "index_user_archivements_on_user_id", using: :btree
   end
 
   create_table "user_roles", id: false, force: :cascade do |t|

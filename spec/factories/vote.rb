@@ -1,13 +1,13 @@
 FactoryGirl.define do
   factory :vote do
-    association :user, strategy: :create
+    association :user
 
     trait :for_article do
-      association :votable, factory: :article, strategy: :create
+      association :votable, factory: :article
     end
 
     trait :for_comment do
-      association :votable, factory: :comment, strategy: :create
+      association :votable, factory: :comment
     end
 
     factory :article_vote, traits: [:for_article]

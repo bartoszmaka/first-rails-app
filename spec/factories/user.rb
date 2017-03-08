@@ -5,6 +5,10 @@ FactoryGirl.define do
     password '123123'
     password_confirmation { password }
 
+    trait :with_avatar do
+      avatar { FFaker::Avatar.image }
+    end
+
     trait :admin_role do
       after(:create) do |user|
         user.add_role 'admin'
@@ -12,5 +16,7 @@ FactoryGirl.define do
     end
 
     factory :admin, traits: [:admin_role]
+    factory :user_with_avatar, traits: [:with_avatar]
+    factory :admin_with_avatar, traits: [:with_avatar, :admin_role]
   end
 end
