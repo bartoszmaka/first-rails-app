@@ -34,4 +34,4 @@
 # /config/database.yml
 
 # images from local db
-/public/system
+/public/system/*
