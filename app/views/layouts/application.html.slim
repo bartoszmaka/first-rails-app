@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+    title FromScratch
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    .container
+      .row style=("margin-top: 75px;")
+        = render 'shared/navigation'
+      .row
+        .col-md-9.col-xs-12
+          = render 'shared/flash_messages'
+          = yield
+        .col-md-3.col-xs-12
+          .row
+            .affix
+              .col-md-11.col-xs-12
+                .well
+                  = render 'shared/ipsum'
+      .row
+        - if ENV['RAILS_ENV']=='development'
+          footer
+            = debug(params)
