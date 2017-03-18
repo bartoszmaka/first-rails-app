@@ -9,11 +9,11 @@ Rails.application.routes.draw do
     resource :votes, only: [:create, :destroy, :update]
   end
 
-  resources :users
+  resources :users, only: [:show, :index]
 
   resources :tags
-  get     '/login',         to: 'sessions#new'
-  post    '/login',         to: 'sessions#create'
-  delete  '/logout',        to: 'sessions#destroy', as: 'logout'
-  get     '/denied',        to: 'static#denied'
+  # get     '/login',         to: 'sessions#new'
+  # post    '/login',         to: 'sessions#create'
+  # delete  '/logout',        to: 'sessions#destroy', as: 'logout'
+  get '/denied', to: 'static#denied'
 end
