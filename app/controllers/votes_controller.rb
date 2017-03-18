@@ -1,4 +1,6 @@
 class VotesController < ApplicationController
+  before_action :authenticate_user!
+
   def create
     @vote = Vote.new(user: current_user, votable_id: params[:votable_id], votable_type: params[:votable_type])
     params[:positive] ? @vote.upvote : @vote.downvote

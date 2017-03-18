@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
   include ArticlesHelper
-  before_action :authorize, only: [:new, :edit, :update, :destroy, :create]
+  # before_action :authorize, only: [:new, :edit, :update, :destroy, :create]
+  before_action :authenticate_user!, except: [:show, :index]
 
   def index
     params[:smart_buttons] = index_buttons
