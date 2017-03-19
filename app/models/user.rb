@@ -23,10 +23,11 @@ class User < ApplicationRecord
                     default_url: 'avatars/missing.png'
 
   # before_save { self.email = email.downcase }
+  before_create { self.name = name_from_email if name.nil? }
   after_create { archivements << Archivement.find_or_create_by(name: 'Blogger') }
 
   validates_attachment_content_type :avatar, content_type: %r{\Aimage\/.*\z}
-  validates :name, presence: true, length: { maximum: 50 }
+  # validates :name, presence: true, length: { maximum: 50 }
   # validates :email, presence: true,
   #                   length: { maximum: 255 },
   #                   format: { with: VALID_EMAIL_REGEX },
@@ -67,5 +68,11 @@ class User < ApplicationRecord
 
   def remove_role(role_name)
     roles.delete(Role.find_by(name: role_name))
+  end
+
+  private
+
+  def name_from_email
+    email.split('@').first
   end
 end
