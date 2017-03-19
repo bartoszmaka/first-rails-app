@@ -19,8 +19,8 @@ navbar.navbar-default.navbar-fixed-top.navbar-inverse
           = link_to(image_tag(current_user.avatar.url, size: '40x40', style: 'margin-top: 5px', class: 'dropdown-toggle'), user_path(current_user), style: 'padding: 0 15px 0 15px')
           ul.dropdown-menu
             li = link_to 'Profile', user_path(current_user)
-            li = link_to 'Edit', edit_user_path(current_user)
-            li = link_to 'Log out', logout_path, method: :delete
+            li = link_to 'Edit', edit_user_registration_path
+            li = link_to 'Log out', destroy_user_session_path, method: :delete
       - else
           li = link_to 'Log in', new_user_session_path
           li = link_to 'Register', new_user_registration_path
