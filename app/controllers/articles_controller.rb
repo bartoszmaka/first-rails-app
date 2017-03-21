@@ -48,7 +48,6 @@ class ArticlesController < ApplicationController
 
   def edit
     @article = Article.find(params[:id])
-    # binding.pry
     unless current_user_owns? @article
       flash[:danger] = 'You are not permitted to edit this article'
       redirect_to articles_path

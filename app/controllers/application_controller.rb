@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   def deny_banned_user
     if current_user&.banned?
-      redirect_to :back
+      redirect_back(fallback_location: root_path)
       flash[:danger] = 'You are banned, sorry'
     end
   end
