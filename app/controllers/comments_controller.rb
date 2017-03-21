@@ -1,11 +1,6 @@
 class CommentsController < ApplicationController
-  # include ApplicationHelper
-  # before_action :authorize, only: [:new, :create, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
-  # def index
-  #   @article = Article.find(params[:article_id])
-  #   @comments = @article.comments
-  # end
+  before_action :deny_banned_user, except: [:show, :index]
 
   def destroy
     @comment = Comment.find(params[:id])

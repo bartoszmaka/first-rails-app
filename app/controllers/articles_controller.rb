@@ -1,6 +1,5 @@
 class ArticlesController < ApplicationController
   include ArticlesHelper
-  # before_action :authorize, only: [:new, :edit, :update, :destroy, :create]
   before_action :authenticate_user!, except: [:show, :index]
   before_action :deny_banned_user, except: [:show, :index]
 

@@ -1,5 +1,6 @@
 class VotesController < ApplicationController
   before_action :authenticate_user!
+  before_action :deny_banned_user, except: [:show, :index]
 
   def create
     @vote = Vote.new(user: current_user, votable_id: params[:votable_id], votable_type: params[:votable_type])
