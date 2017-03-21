@@ -2,6 +2,7 @@ class ArticlesController < ApplicationController
   include ArticlesHelper
   # before_action :authorize, only: [:new, :edit, :update, :destroy, :create]
   before_action :authenticate_user!, except: [:show, :index]
+  before_action :deny_banned_user, only: [:new, :edit, :update, :destroy, :create]
 
   def index
     params[:smart_buttons] = index_buttons
@@ -48,6 +49,7 @@ class ArticlesController < ApplicationController
 
   def edit
     @article = Article.find(params[:id])
+    # binding.pry
     unless current_user_owns? @article
       flash[:danger] = 'You are not permitted to edit this article'
       redirect_to articles_path
