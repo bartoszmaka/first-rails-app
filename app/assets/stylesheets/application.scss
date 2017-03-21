@@ -41,8 +41,13 @@ body {
     margin-top: 0; // remove the gap so it doesn't close
  }
 
- .alert-notice {
+.alert-notice {
     color: #31708f;
     background-color: #d9edf7;
     border-color: #bce8f1;
+}
+.alert-alert {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
 }
