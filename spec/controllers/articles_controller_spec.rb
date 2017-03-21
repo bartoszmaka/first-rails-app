@@ -48,7 +48,8 @@ describe ArticlesController, type: :controller do
   describe 'GET #new' do
     context 'when user is authenticated' do
       let(:user) { create(:user) }
-      let(:call_request) { get :new, session: { user_id: user.id } }
+      let(:call_request) { get :new }
+      before { sign_in user }
       it { expect(call_request.status).to eq 200 }
       it { expect(call_request).to render_template :new }
       it 'assigns new article' do
@@ -59,7 +60,7 @@ describe ArticlesController, type: :controller do
 
     context 'when user is banned' do
       let(:user) { create(:user) }
-      let(:call_request) { get :new, session: { user_id: user.id } }
+      let(:call_request) { get :new }
       before do
         user.ban
         call_request
@@ -70,14 +71,17 @@ describe ArticlesController, type: :controller do
     context 'when user is not authenticated' do
       let(:call_request) { get :new, session: { user_id: nil } }
       it { expect(call_request.status).to eq 302 }
-      it { expect(call_request).to redirect_to denied_path }
+      it { expect(call_request).to redirect_to new_user_session_path }
     end
   end
 
   describe 'GET #edit' do
     let!(:user) { create(:user) }
     let!(:article) { create(:article, user: user) }
-    before { call_request }
+    before do
+      sign_in user
+      call_request
+    end
     context 'when user is authenticated' do
       context 'when user owns resource' do
         let(:call_request) { get :edit, params: { id: article.id }, session: { user_id: user.id } }
