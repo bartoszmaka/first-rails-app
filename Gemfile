@@ -27,12 +27,12 @@ gem 'slim'
 gem 'slim-rails'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
+gem 'factory_girl'
+gem 'factory_girl_rails'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   # Use sqlite3 as the database for Active Record
   gem 'byebug', platform: :mri
-  gem 'factory_girl'
-  gem 'factory_girl_rails'
 end
 
 group :test do
