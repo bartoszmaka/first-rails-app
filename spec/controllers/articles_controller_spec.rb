@@ -1,4 +1,5 @@
 require 'rails_helper'
+
 describe ArticlesController, type: :controller do
   describe 'GET #index' do
     let!(:article) { create(:article) }
@@ -243,7 +244,6 @@ describe ArticlesController, type: :controller do
 
       context 'when changed resource is not valid' do
         let(:params) { { id: article.id, article: { title: '' } } }
-        let(:call_request) { patch :update, params: params }
         it 'expects to leave article title as it is' do
           expect(Article.find(article.id).title).to eq article.title
         end
@@ -253,8 +253,20 @@ describe ArticlesController, type: :controller do
       end
     end
 
+    context 'when user is banned' do
+      before do
+        request.env['HTTP_REFERER'] = articles_path
+        sign_in user
+        user.ban
+      end
+      it 'expects to leave article title as it is' do
+        expect(Article.find(article.id).title).to eq article.title
+      end
+      it { expect(call_request.status).to eq 302 }
+      it { expect(call_request).to redirect_to articles_path }
+    end
+
     context 'when user is not authenticated' do
-      let(:call_request) { patch :update, params: params }
       before { call_request }
       it 'expects to leave article title as it is' do
         expect(Article.find(article.id).title).to eq article.title
