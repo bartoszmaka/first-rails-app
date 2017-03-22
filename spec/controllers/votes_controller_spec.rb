@@ -6,9 +6,12 @@ describe VotesController, type: :controller do
   let(:comment) { create(:comment, user: user, article: article) }
   let(:session) { { user_id: user.id } }
   let(:params) { { votable_id: article.id, votable_type: article.class.name } }
-  before { request.env['HTTP_REFERER'] = article_path(article.id) }
+  before do
+    request.env['HTTP_REFERER'] = article_path(article.id)
+    sign_in user
+  end
   describe 'POST #create' do
-    let(:call_request) { post :create, params: params, session: session }
+    let(:call_request) { post :create, params: params }
     it 'expects to create new vote' do
       expect { call_request }.to change(Vote, :count).by(1)
     end
@@ -16,7 +19,7 @@ describe VotesController, type: :controller do
 
   describe 'DELETE #destroy' do
     let!(:vote) { create(:vote, votable: article, user: user, positive: true) }
-    let(:call_request) { delete :destroy, params: params, session: session }
+    let(:call_request) { delete :destroy, params: params }
     it 'expects to delete vote' do
       expect { call_request }.to change(Vote, :count).by(-1)
     end
@@ -24,7 +27,7 @@ describe VotesController, type: :controller do
 
   describe 'PATCH #update' do
     let!(:vote) { create(:vote, votable: article, user: user, positive: true) }
-    let(:call_request) { patch :update, params: params, session: session }
+    let(:call_request) { patch :update, params: params }
     it 'changes vote value' do
       call_request
       expect(Vote.find(vote.id).positive).to eq false
