@@ -30,15 +30,4 @@ class Article < ApplicationRecord
       ArticleTag.find_or_create_by(article_id: id, tag_id: t.id) unless t.nil?
     end
   end
-
-  # def separated_tags=(string)
-  #   tags = []
-  #   return nil if string.nil?
-  #   return nil if string.match?(/[^a-z0-9, ]/i)
-  #   return string.strip unless string.include?(',')
-  #   string.delete(' ').split(',').each do |tag_name|
-  #     tag = Tag.find_or_create_by(name: tag_name)
-  #     tags << tag unless tags.include? tag
-  #   end
-  # end
 end

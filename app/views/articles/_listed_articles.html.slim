@@ -1,13 +1,14 @@
 table.table.table-striped.table-bordered.table-condensed
   tr
-    th = sort_link(@q, :id)
-    th = sort_link(@q, :title)
-    th = sort_link(@q, :comments_count, 'Comments')
+    th = sort_link(q, :id)
+    th = sort_link(q, :title)
+    th = sort_link(q, :comments_count, 'Comments')
     th Description
-    th = sort_link(@q, :updated_at, 'Updated')
-    - if current_user
-      th colspan="3" Actions
-  - @articles.order(updated_at: :desc).each do |article|
+    th = sort_link(q, :updated_at, 'Updated')
+    th = sort_link(q, :score)
+    - if current_user&.admin?
+      th colspan="2" Actions
+  - articles.order(updated_at: :desc).each do |article|
     tr
       td = article.id
       td = link_to article.title, article_path(article)
@@ -16,7 +17,7 @@ table.table.table-striped.table-bordered.table-condensed
       td
         = time_ago_in_words(article.updated_at)
         |  ago
-      - if current_user
-        td = link_to 'Show', article_path(article)
+      td = article.score
+      - if current_user&.admin?
         td = link_to 'Edit', edit_article_path(article)
         td = link_to 'Delete', article_path(article), method: :delete

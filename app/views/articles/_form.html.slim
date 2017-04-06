@@ -1,7 +1,7 @@
 .row
   .col-sm-8.col-sm-offset-2
-    = form_for @article do |f|
-      - if @article.errors.any?
+    = form_for article do |f|
+      - if article.errors.any?
         = render 'form_errors'
       .form-group
         = f.label :title, class: 'control-label'
