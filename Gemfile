@@ -6,10 +6,13 @@ source 'https://rubygems.org'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+gem 'active_interaction', '~> 3.5'
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass', '3.3.6'
 gem 'coffee-rails', '~> 4.2'
 gem 'coveralls', require: false
+gem 'decent_decoration', '~> 0.1.0'
+gem 'decent_exposure', '3.0.0'
 gem 'devise'
 gem 'ffaker'
 gem 'jbuilder', '~> 2.5'
