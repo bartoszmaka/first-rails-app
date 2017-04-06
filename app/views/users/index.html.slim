@@ -2,15 +2,15 @@
 table.table.table-striped.table-bordered.table-condensed
   tr
     th Avatar
-    th Name
-    th Status
-    th Email
-    th Comments
-    th Articles
+    th = sort_link(@q, :name)
+    th = sort_link(@q, :status)
+    th = sort_link(@q, :email)
+    th = sort_link(@q, :comments_count, 'Comments')
+    th = sort_link(@q, :articles_count, 'Articles')
   - @users.order(updated_at: :desc).each do |user|
     tr
       td = image_tag user.avatar.url, size: '50x50'
-      td = user.name
+      td = link_to user.name, user_path(user)
       - case
       - when user.banned?
         td.bg-danger banned

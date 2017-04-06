@@ -2,7 +2,8 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    @users = User.all
+    @q = User.ransack(params[:q])
+    @users = @q.result
   end
 
   def show
