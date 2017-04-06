@@ -4,8 +4,10 @@ describe ArticlesController, type: :controller do
   describe 'GET #index' do
     let!(:article) { create(:article) }
     let!(:article2) { create(:article, title: 'test') }
+
     context 'when params :search is not passed' do
       let!(:call_request) { get :index }
+
       it 'exposes articles' do
         expect(assigns(:articles)).to eq [article, article2]
       end
@@ -13,8 +15,10 @@ describe ArticlesController, type: :controller do
       it { is_expected.to render_template :index }
       it { is_expected.to respond_with :ok }
     end
+
     context 'when params :search passed' do
       let!(:call_request) { get :index, params: { search: 'test' } }
+
       it { is_expected.to render_with_layout :application }
       it { is_expected.to render_template :index }
       it { is_expected.to respond_with :ok }

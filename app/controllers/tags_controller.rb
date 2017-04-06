@@ -1,10 +1,12 @@
 class TagsController < ApplicationController
   def index
-    @tags = Tag.all
+    @q = Tag.ransack(params[:q])
+    @tags = @q.result
   end
 
   def show
     @tag = Tag.find(params[:id])
-    @articles = @tag.articles
+    @q = @tag.articles.ransack(params[:q])
+    @articles = @q.result
   end
 end

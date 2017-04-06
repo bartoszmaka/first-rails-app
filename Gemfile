@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 # Specify ruby version for heroku
-ruby '~> 2.4.0'
+# ruby '~> 2.4.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -16,10 +16,11 @@ gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'paperclip', '~> 5.0.0'
 gem 'pg'
+gem 'ransack'
 gem 'pry'
 gem 'pry-rails'
 gem 'puma', '~> 3.0'
-gem 'rails', '~> 5.0.1'
+gem 'rails', '~> 5.0'
 gem 'rails-controller-testing'
 gem 'rspec-rails', '~> 3.5'
 gem 'sass-rails', '~> 5.0'

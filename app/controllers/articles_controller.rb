@@ -4,12 +4,14 @@ class ArticlesController < ApplicationController
   before_action :deny_banned_user, except: [:show, :index]
 
   def index
+    @q = Article.ransack(params[:q])
+    @articles = @q.result
     params[:smart_buttons] = index_buttons
-    if params[:search]
-      @articles = Article.where('title LIKE ?', params[:search])
-    else
-      @articles = Article.all
-    end
+    # if params[:search]
+    #   @articles = Article.where('title LIKE ?', params[:search])
+    # else
+    #   @articles = Article.all
+    # end
   end
 
   def show

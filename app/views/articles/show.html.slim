@@ -1,39 +1,40 @@
 - provide :header, "Article page"
-.row
-  .col-sm-12
-    .well
-      .row
-        .col-sm-1
-          = link_to user_path(@article.user) do
-            = image_tag(@article.user.avatar.url, size: '60x60', style: 'margin-top: 20px')
-        .col-sm-8
-          h2
-            = @article.title
-            br
-            small
-              | By
-              =< link_to @article.author, user_path(@article.user)
-        .col-sm-3 style='margin-top: 20px'
-          = render 'shared/vote_picker', votable: @article
-          - if current_user_owns? @article
-            .bottom-align-text.pull-right
-              = link_to edit_article_path(@article), class: 'btn btn-default btn-sm' do
-                span.glyphicon.glyphicon-pencil
-              = link_to article_path(@article), method: :delete, class: 'btn btn-default btn-sm' do
-                span.glyphicon.glyphicon-trash
-      .row
-        .col-sm-12
-          hr style='margin: 5px 0px 0px 0px;'
-          h3 style='margin: 0px 0px 0px 0px;'
-            small
-              | Posted on
-              span style='color: rgb(51, 51, 51)' =< @article.created_at
-      .row
-        .col-sm-12
-          hr style='margin: 5px 0px 5px 0px'
-          = render 'articles/article_tags', article: @article, smaller: true
-      p.lead
-        = @article.content
+.row: .col-sm-12: .well
+  .row
+    .col-sm-1
+      = link_to user_path(@article.user) do
+        = image_tag(@article.user.avatar.url, size: '60x60', style: 'margin-top: 20px')
+    .col-sm-8
+      h2
+        = @article.title
+        br
+        small
+          | By
+          =< link_to @article.author, user_path(@article.user)
+    .col-sm-3 style='margin-top: 20px'
+      = render 'shared/vote_picker', votable: @article
+      - if current_user_owns? @article
+        .bottom-align-text.pull-right
+          = link_to edit_article_path(@article), class: 'btn btn-default btn-sm' do
+            span.glyphicon.glyphicon-pencil
+          = link_to article_path(@article), method: :delete, class: 'btn btn-default btn-sm' do
+            span.glyphicon.glyphicon-trash
+  .row
+    .col-sm-12
+      hr style='margin: 5px 0px 0px 0px;'
+      h3 style='margin: 0px 0px 0px 0px;'
+        small
+          | Posted on
+          span style='color: rgb(51, 51, 51)' =< @article.created_at.localtime.to_formatted_s(:db)
+          |  (
+          = time_ago_in_words(@article.created_at)
+          |  ago)
+  .row
+    .col-sm-12
+      hr style='margin: 5px 0px 5px 0px'
+      = render 'articles/article_tags', article: @article, smaller: true
+  p.lead
+    = @article.content
 
 = render 'comments/form'
 = render 'comments/listed_comments'

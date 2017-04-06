@@ -1,35 +1,37 @@
 - provide :header, "Home page"
 h2 Top rated articles:
 - @best_scored_articles.each do |article|
-  .row
-    .col-sm-12
-      .well
-        .row
-          .col-sm-1
-            = link_to(image_tag(article.user.avatar.url, size: '48x48', style: 'margin-top: 20px'), user_path(article.user))
-          .col-sm-9
-            h3
-              = link_to truncate(article.title, length: 100, separator: ' '), article_path(article)
-              br
-              small
-                | By
-                =< link_to article.author, user_path(article.user)
-          .col-sm-2
-            h4.pull-right
-              small Score:
-              =< article.score
-        .row
-          .col-sm-12
-            hr style='margin: 5px 0px 5px 0px'
-            h4 style='margin-bottom: 0px;'
-              small
-                | Posted on
-                span style='color: rgb(51, 51, 51)' =< article.created_at
-        .row
-          .col-sm-12
-            hr style='margin: 5px 0px 5px 0px'
-            = render 'articles/article_tags', article: article, smaller: true
-        .row
-          .col-sm-11.col-sm-offset-1
-            = link_to article_path(article) do
-              h5 = "#{article.comments_count} comments"
+  .row: .col-sm-12: .well
+    .row
+      .col-sm-1
+        = link_to user_path(article.user) do
+          = image_tag(article.user.avatar.url, size: '48x48', style: 'margin-top: 20px')
+      .col-sm-9
+        h3
+          = link_to article_path(article) do
+            = truncate(article.title, length: 100, separator: ' ')
+          br
+          small
+            | By
+            =< link_to article.author, user_path(article.user)
+      .col-sm-2
+        h4.pull-right
+          small Score:
+          =< article.score
+    .row
+      .col-sm-12
+        hr style='margin: 5px 0px 5px 0px'
+        h4 style='margin-bottom: 0px;'
+          small
+            | Posted
+            span style='color: rgb(51, 51, 51)' =< article.created_at.to_formatted_s(:db)
+            |  (#{time_ago_in_words(article.updated_at)} ago)
+
+    .row
+      .col-sm-12
+        hr style='margin: 5px 0px 5px 0px'
+        = render 'articles/article_tags', article: article, smaller: true
+    .row
+      .col-sm-11.col-sm-offset-1
+        = link_to article_path(article) do
+          h5 = "#{article.comments_count} comments"
