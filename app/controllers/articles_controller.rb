@@ -1,11 +1,13 @@
 class ArticlesController < ApplicationController
   include ArticlesHelper
-  expose_decorated(:article, build_params: :article_params)
   expose(:q) { Article.ransack(params[:q]) }
-  expose_decorated(:articles) { q.result }
+  expose(:comments_query) { article.comments.ransack(params[:q]) }
+  expose(:comments) { comments_query.result }
   expose(:comment) { Comment.new }
+  expose_decorated(:article, build_params: :article_params)
+  expose_decorated(:articles) { q.result }
   before_action :authenticate_user!, except: [:show, :index]
-  before_action :deny_banned_user, except: [:show, :index]
+  before_action :redirect_banned_user, except: [:show, :index]
 
   def destroy
     if current_user_owns? article
