@@ -1,2 +1,3 @@
-class ArticlesDecorator < Draper::CollectionsDecorator
+class ArticlesDecorator < Draper::CollectionDecorator
+  delegate :order
 end
