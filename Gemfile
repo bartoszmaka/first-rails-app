@@ -13,6 +13,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'coveralls', require: false
 gem 'decent_decoration', '~> 0.1.0'
 gem 'decent_exposure', '3.0.0'
+gem 'draper'
 gem 'devise'
 gem 'ffaker'
 gem 'jbuilder', '~> 2.5'
