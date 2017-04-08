@@ -1,11 +1,12 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :deny_banned_user, except: [:show, :index]
+  before_action :redirect_banned_user, except: [:show, :index]
+  expose_decorated :comment, parent: :article
+  expose_decorated(:article)
 
   def destroy
-    @comment = Comment.find(params[:id])
-    if current_user_owns? @comment
-      @comment.destroy
+    if current_user_owns? comment
+      comment.destroy
       flash[:success] = 'Comment succesfully deleted'
     else
       flash[:danger] = 'You are not permitted to delete this comment'
@@ -13,39 +14,27 @@ class CommentsController < ApplicationController
     redirect_to article_path(params[:article_id])
   end
 
-  def new
-    @article = Article.find(params[:article_id])
-    @comment = @article.comments.new
-  end
-
   def create
-    @article = Article.find(params[:article_id])
-    @comment = @article.comments.new(comment_params)
-    @comment.user = current_user
-    if @comment.save
+    comment.user = current_user
+    if comment.save
       flash[:success] = 'Comment succesfully created'
-      redirect_to article_path(@article)
+      redirect_to article_path(article)
     else
       render 'new'
     end
   end
 
   def edit
-    @article = Article.find(params[:article_id])
-    @comment = Comment.find(params[:id])
-    unless current_user_owns? @comment
+    unless current_user_owns? comment
       flash[:danger] = 'You are not permitted to edit this comment'
-      redirect_to @article
+      redirect_to article
     end
   end
 
   def update
-    @article = Article.find(params[:article_id])
-    @comment = Comment.find(params[:id])
-    @comment.update(comment_params)
-    if @comment.save
+    if comment.save
       flash[:success] = 'Comment succesfully updated'
-      redirect_to article_path(@article)
+      redirect_to article_path(article)
     else
       render 'edit'
     end

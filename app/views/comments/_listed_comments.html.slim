@@ -1,12 +1,12 @@
-- if article.comments.any?
+- if comments.any?
   .row: .col-md-12
-    .col-md-1.pull-right
-      = sort_link(q, :updated_at) do
-        span.glyphicon.glyphicon-time
-    .col-md-1.pull-right
-      = sort_link(q, :score) do
+    .pull-right
+      = sort_link(comments_query, :score, default_order: :desc) do
         span.glyphicon.glyphicon-plus
-- article.comments.order(updated_at: :desc).each do |comment|
+    .pull-right
+      = sort_link(comments_query, :updated_at, default_order: :desc) do
+        span.glyphicon.glyphicon-time
+- comments.each do |comment|
   hr: .row: .media
     .col-md-1.col-xs-1
       = link_to(image_tag(comment.user.avatar.url, size: '64x64', class: 'media-object'),
