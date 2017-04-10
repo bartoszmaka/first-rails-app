@@ -1,6 +1,6 @@
 class TagsController < ApplicationController
   expose :q, :foobar
-  expose :tag
+  expose :taggling { Tag.find(params[:id]) }
   expose :tags { q.result }
   expose :articles { q.result }
 
