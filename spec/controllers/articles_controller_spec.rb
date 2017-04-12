@@ -4,37 +4,23 @@ describe ArticlesController, type: :controller do
   describe 'GET #index' do
     let!(:article) { create(:article) }
     let!(:article2) { create(:article, title: 'test') }
+    before { call_request }
 
     context 'when params :search is not passed' do
-      let!(:call_request) { get :index }
+      let(:call_request) { get :index }
 
-      it 'exposes articles' do
-        expect(assigns(:articles)).to eq [article, article2]
-      end
-      it { is_expected.to render_with_layout :application }
+      it { expect(controller.articles).to eq [article, article2] }
       it { is_expected.to render_template :index }
       it { is_expected.to respond_with :ok }
-    end
-
-    context 'when params :search passed' do
-      let!(:call_request) { get :index, params: { search: 'test' } }
-
-      it { is_expected.to render_with_layout :application }
-      it { is_expected.to render_template :index }
-      it { is_expected.to respond_with :ok }
-      it 'exposes articles with title matching pattern' do
-        expect(assigns(:articles)).to eq [article2]
-      end
     end
   end
 
   describe 'GET #show' do
-    let!(:article) { create(:article) }
-    let!(:call_request) { get :show, params: { id: article } }
-    it 'exposes article' do
-      expect(assigns(:article)).to eq article
-    end
-    it { is_expected.to render_with_layout :application }
+    let(:article) { create(:article) }
+    let(:call_request) { get :show, params: { id: article } }
+    before { call_request }
+
+    it { expect(controller.article).to eq article }
     it { is_expected.to render_template :show }
     it { is_expected.to respond_with :ok }
   end
@@ -42,17 +28,17 @@ describe ArticlesController, type: :controller do
   describe 'GET #new' do
     let(:user) { create(:user) }
     let(:call_request) { get :new }
+
     context 'when user is authenticated' do
       before do
         sign_in user
         call_request
       end
+
+      it { expect(controller.article.attributes).to eq Article.new.attributes }
       it { is_expected.to render_with_layout :application }
       it { is_expected.to render_template :new }
       it { is_expected.to respond_with :ok }
-      it 'assigns new article' do
-        expect(assigns(:article).attributes).to eq Article.new.attributes
-      end
     end
 
     context 'when user is banned' do
@@ -62,6 +48,7 @@ describe ArticlesController, type: :controller do
         user.ban
         call_request
       end
+
       it { is_expected.to respond_with :found }
       it { is_expected.to redirect_to articles_path }
     end
@@ -77,25 +64,27 @@ describe ArticlesController, type: :controller do
     let(:user) { create(:user) }
     let(:article) { create(:article, user: user) }
     let(:call_request) { get :edit, params: { id: article.id } }
+
     context 'when user is authenticated' do
       before do
         sign_in user
         call_request
       end
+
+      it { expect(controller.article.attributes).to eq Article.last.attributes }
       it { is_expected.to render_with_layout :application }
       it { is_expected.to render_template :edit }
       it { is_expected.to respond_with :ok }
-      it 'assigns edited article' do
-        expect(assigns(:article).attributes).to eq Article.last.attributes
-      end
     end
 
     context 'when user does not own resource' do
       let(:article) { create(:article) }
+
       before do
         sign_in user
         call_request
       end
+
       it { is_expected.to respond_with :found }
       it { is_expected.to redirect_to articles_path }
     end
@@ -107,6 +96,7 @@ describe ArticlesController, type: :controller do
         user.ban
         call_request
       end
+
       it { is_expected.to respond_with :found }
       it { is_expected.to redirect_to articles_path }
     end
@@ -122,8 +112,10 @@ describe ArticlesController, type: :controller do
     let(:attributes) { attributes_for(:article) }
     let(:user) { create(:user) }
     let(:call_request) { post :create, params: { article: attributes } }
+
     context 'when user is authenticated' do
       before { sign_in user }
+
       context 'when attributes are valid' do
         it 'creates a new article' do
           expect { call_request }.to change(Article, :count).by(1)
@@ -173,6 +165,7 @@ describe ArticlesController, type: :controller do
     context 'when user is authenticated' do
       context 'when user owns resource' do
         before { sign_in user }
+
         it 'deletes article' do
           expect { call_request }.to change(Article, :count).by(-1)
         end
@@ -183,10 +176,12 @@ describe ArticlesController, type: :controller do
       context 'when user does not own resource' do
         let(:other_user) { create(:user) }
         let(:call_request) { delete :destroy, params: { id: article.id } }
+
         before { sign_in other_user }
         it 'does not delete article' do
           expect { call_request }.to change(Article, :count).by(0)
         end
+
         it { expect(call_request.status).to eq 302 }
         it { expect(call_request).to redirect_to articles_path }
       end
@@ -194,7 +189,9 @@ describe ArticlesController, type: :controller do
       context 'when user is an admin' do
         let(:user) { create(:admin) }
         let(:call_request) { delete :destroy, params: { id: article.id } }
+
         before { sign_in user }
+
         it 'deletes article' do
           expect { call_request }.to change(Article, :count).by(-1)
         end
@@ -205,11 +202,13 @@ describe ArticlesController, type: :controller do
       context 'when user is banned' do
         let(:user) { create(:user) }
         let(:call_request) { delete :destroy, params: { id: article.id } }
+
         before do
           request.env['HTTP_REFERER'] = articles_path
           sign_in user
           user.ban
         end
+
         it 'does not delete article' do
           expect { call_request }.to change(Article, :count).by(0)
         end
@@ -220,6 +219,7 @@ describe ArticlesController, type: :controller do
 
     context 'when user is not authenticated' do
       let(:call_request) { delete :destroy, params: { id: article.id } }
+
       it 'does not delete article' do
         expect { call_request }.to change(Article, :count).by(0)
       end
@@ -229,18 +229,23 @@ describe ArticlesController, type: :controller do
   end
 
   describe 'PATCH #update' do
-    let!(:user) { create(:user) }
-    let!(:article) { create(:article, user: user) }
-    let(:params) { { id: article.id, article: { title: 'my new valid title' } } }
+    let(:user) { create(:user) }
+    let(:article) { create(:article, user: user) }
+    let(:new_title) { 'my new valid title' }
+    let(:params) { { id: article.id, article: { title: new_title } } }
     let(:call_request) { patch :update, params: params }
+
     context 'when user is authenticated' do
       before do
+        user.add_role('admin')
         sign_in user
         call_request
       end
+
       context 'when changed resource is valid' do
         it 'expects to change article title' do
-          expect(Article.find(article.id).title).not_to eq article.title
+          call_request
+          expect(Article.find(article.id).title).to eq new_title
         end
         it { is_expected.to respond_with :found }
         it { is_expected.to redirect_to article_path(article.id) }

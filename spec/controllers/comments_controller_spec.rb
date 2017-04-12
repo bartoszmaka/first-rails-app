@@ -3,20 +3,20 @@ require 'rails_helper'
 describe CommentsController, type: :controller do
   let(:user) { create(:user) }
   let(:article) { create(:article) }
+
   describe 'GET #new' do
     let(:params) { { article_id: article.id } }
     let(:call_request) { get :new, params: params }
+
     context 'when user is authorised' do
       before do
         sign_in user
         call_request
       end
+
       it { is_expected.to respond_with :ok }
       it { is_expected.to render_template :new }
-      it { is_expected.to render_with_layout :application }
-      it 'assigns empty comment' do
-        expect(assigns(:comment).attributes).to eq article.comments.new.attributes
-      end
+      it { expect(controller.comment.attributes).to eq article.comments.new.attributes }
     end
 
     context 'when user is banned' do
@@ -26,12 +26,14 @@ describe CommentsController, type: :controller do
         user.ban
         call_request
       end
+
       it { is_expected.to respond_with :found }
       it { is_expected.to redirect_to article_path(article) }
     end
 
     context 'when user is not authorised' do
       before { call_request }
+
       it { is_expected.to respond_with :found }
       it { is_expected.to redirect_to new_user_session_path }
     end
@@ -39,8 +41,10 @@ describe CommentsController, type: :controller do
 
   describe 'POST #create' do
     let(:call_request) { post :create, params: params }
+
     context 'when user is authorised' do
       before { sign_in user }
+
       context 'when attributes are valid' do
         let(:params) { { article_id: article.id, comment: attributes_for(:comment) } }
         it { expect(call_request.status).to eq 302 }
@@ -53,7 +57,6 @@ describe CommentsController, type: :controller do
       context 'when attributes are not valid' do
         let(:params) { { article_id: article.id, comment: attributes_for(:comment, content: '') } }
         it { expect(call_request.status).to eq 200 }
-        it { expect(call_request).to render_with_layout :application }
         it { expect(call_request).to render_template :new }
         it 'does not create a comment' do
           expect { call_request }.to change(Comment, :count).by(0)
@@ -92,11 +95,8 @@ describe CommentsController, type: :controller do
         call_request
       end
       context 'when user owns resource' do
-        it 'assigns edited article' do
-          expect(assigns(:comment).attributes).to eq Comment.last.attributes
-        end
+        it { expect(controller.comment.attributes).to eq Comment.last.attributes }
         it { is_expected.to respond_with :ok }
-        it { is_expected.to render_with_layout :application }
         it { is_expected.to render_template :edit }
       end
 
@@ -114,12 +114,14 @@ describe CommentsController, type: :controller do
         user.ban
         call_request
       end
+
       it { is_expected.to respond_with :found }
       it { is_expected.to redirect_to article_path(article) }
     end
 
     context 'when user is not authorised' do
       before { call_request }
+
       it { is_expected.to respond_with :found }
       it { is_expected.to redirect_to new_user_session_path }
     end
@@ -130,11 +132,13 @@ describe CommentsController, type: :controller do
     let(:call_request) { put :update, params: params }
     let(:attributes) { attributes_for(:comment) }
     let(:params) { { id: comment.id, article_id: article.id, comment: attributes } }
+
     context 'when user is authorised' do
       before do
         sign_in user
         call_request
       end
+
       context 'when attributes are valid' do
         it 'expects to change comment content' do
           expect(Comment.find(comment.id).content).not_to eq comment.content
@@ -150,7 +154,6 @@ describe CommentsController, type: :controller do
         end
         it { is_expected.to respond_with :ok }
         it { is_expected.to render_template :edit }
-        it { is_expected.to render_with_layout :application }
       end
     end
 
@@ -204,7 +207,6 @@ describe CommentsController, type: :controller do
         end
         it { is_expected.to respond_with :ok }
         it { is_expected.to render_template :edit }
-        it { is_expected.to render_with_layout :application }
       end
     end
 

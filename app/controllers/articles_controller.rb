@@ -4,8 +4,8 @@ class ArticlesController < ApplicationController
   expose(:comments_query) { article.comments.ransack(params[:q]) }
   expose(:comments) { comments_query.result }
   expose(:comment) { Comment.new }
-  expose_decorated(:article, build_params: :article_params)
-  expose_decorated(:articles) { q.result }
+  expose(:article, build_params: :article_params)
+  expose(:articles) { q.result }
   before_action :authenticate_user!, except: [:show, :index]
   before_action :redirect_banned_user, except: [:show, :index]
 
@@ -38,8 +38,9 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    article.separated_tags = params[:article][:separated_tags]
-    if article.save
+    # binding.pry
+    if article.update(article_params)
+      article.separated_tags = params[:article][:separated_tags]
       flash[:success] = 'Article succesfully updated'
       redirect_to article
     else

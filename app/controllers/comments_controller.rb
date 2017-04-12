@@ -32,7 +32,7 @@ class CommentsController < ApplicationController
   end
 
   def update
-    if comment.save
+    if comment.update(comment_params)
       flash[:success] = 'Comment succesfully updated'
       redirect_to article_path(article)
     else
