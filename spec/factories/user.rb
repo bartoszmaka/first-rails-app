@@ -1,6 +1,5 @@
 FactoryGirl.define do
   factory :user do
-    # name { FFaker::Internet.user_name }
     email do
       "#{FFaker::Internet.user_name.gsub(/[^a-zA-Z0-9]/, '')}_#{Random.rand(10_000)}_#{Random.rand(10_000)}@factory.com"
     end
