@@ -1,7 +1,7 @@
 .well style='background-color: #dddddd'
   h4 Comment
-  = form_for ([@article, @comment]) do |f|
-    - if @comment.errors.any?
+  = form_for ([article, comment]) do |f|
+    - if comment.errors.any?
       = render 'form_errors'
     .form-group
       = f.text_area :content, class: 'form-control', rows: '3', placeholder: 'What do you think?'

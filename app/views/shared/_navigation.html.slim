@@ -10,9 +10,8 @@ navbar.navbar-default.navbar-fixed-top.navbar-inverse
       li = link_to 'List of Articles', articles_path
       li = link_to 'List of Tags', tags_path
       li = link_to 'List of Users', users_path
-      - if params[:smart_buttons]
-        - params[:smart_buttons].each do |button|
-          li = button
+      - if current_page?(root_path) or current_page?(articles_path)
+        li = link_to 'New Article', new_article_path
     ul.nav.navbar-nav.navbar-right
       - if user_signed_in?
         li.dropdown

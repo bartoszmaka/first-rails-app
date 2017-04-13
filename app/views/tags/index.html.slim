@@ -1,10 +1,10 @@
 - provide :header, "Tags list"
 table.table.table-striped.table-bordered.table-condensed
   tr
-    th = sort_link(@q, :id)
-    th = sort_link(@q, :name)
-    th = sort_link(@q, :articles_count, 'Articles')
-  - @tags.each do |tag|
+    th = sort_link(q, :id)
+    th = sort_link(q, :name)
+    th = sort_link(q, :articles_count, 'Articles')
+  - tags.each do |tag|
     tr
       td = tag.id
       td = link_to tag_path(tag) do

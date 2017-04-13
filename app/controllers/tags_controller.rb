@@ -1,12 +1,11 @@
 class TagsController < ApplicationController
-  def index
-    @q = Tag.ransack(params[:q])
-    @tags = @q.result
-  end
+  expose :q, :foobar
+  expose :taggling { Tag.find(params[:id]) }
+  expose :tags { q.result }
+  expose :articles { q.result }
 
-  def show
-    @tag = Tag.find(params[:id])
-    @q = @tag.articles.ransack(params[:q])
-    @articles = @q.result
+  def foobar
+    return Tag.ransack(params[:q]) if params[:action] == 'index'
+    return Tag.find(params[:id]).articles.ransack(params[:q]) if params[:action] == 'show'
   end
 end

@@ -1,13 +1,12 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  def deny_banned_user
-    if current_user&.banned?
-      redirect_back(fallback_location: root_path)
-      flash[:danger] = 'You are banned, sorry'
-    end
+  def redirect_banned_user
+    return unless current_user.nil? || current_user.banned?
+    flash[:danger] = 'You are banned, sorry'
+    redirect_back(fallback_location: root_path)
   end
-  helper_method :deny_banned_user
+  helper_method :redirect_banned_user
 
   def current_user_owns?(whatever)
     false if current_user.nil? || current_user.banned?

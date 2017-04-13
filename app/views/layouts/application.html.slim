@@ -14,12 +14,8 @@ html
         .col-md-9.col-xs-12
           = render 'shared/flash_messages'
           = yield
-        .col-md-3.col-xs-12
-          .row
-            .affix
-              .col-md-11.col-xs-12
-                .well
-                  = render 'shared/ipsum'
+        .col-md-3.col-xs-12: .row: .affix: .col-md-11.col-xs-12: .well
+          = render 'shared/ipsum'
       .row
         - if ENV['RAILS_ENV']=='development'
           footer
