@@ -17,7 +17,10 @@ class User < ApplicationRecord
                     default_url: 'avatars/missing.png'
 
   before_create { self.name = name_from_email if name.nil? }
-  after_create { archivements << Archivement.find_or_create_by(name: 'Blogger') }
+
+  def after_confirmation
+    archivements << Archivement.find_or_create_by(name: 'Blogger')
+  end
 
   validates_attachment_content_type :avatar, content_type: %r{\Aimage\/.*\z}
 
