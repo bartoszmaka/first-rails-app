@@ -13,32 +13,33 @@ gem 'coffee-rails', '~> 4.2'
 gem 'coveralls', require: false
 gem 'decent_decoration', '~> 0.1.0'
 gem 'decent_exposure', '3.0.0'
-gem 'draper'
 gem 'devise'
+gem 'draper'
+gem 'factory_girl'
+gem 'factory_girl_rails'
 gem 'ffaker'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'paperclip', '~> 5.0.0'
 gem 'pg'
-gem 'ransack'
 gem 'pry'
 gem 'pry-rails'
 gem 'puma', '~> 3.0'
 gem 'rails', '~> 5.0'
 gem 'rails-controller-testing'
+gem 'ransack'
 gem 'rspec-rails', '~> 3.5'
 gem 'sass-rails', '~> 5.0'
 gem 'slim'
 gem 'slim-rails'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
-gem 'factory_girl'
-gem 'factory_girl_rails'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   # Use sqlite3 as the database for Active Record
-  gem 'letter_opener_web'
+  gem 'brakeman', require: false
   gem 'byebug', platform: :mri
+  gem 'letter_opener_web'
 end
 
 group :test do
@@ -62,4 +63,4 @@ end
 #   gem 'pg', '0.18.4'
 # end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
