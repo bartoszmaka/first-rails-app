@@ -56,8 +56,8 @@ describe CommentsController, type: :controller do
 
       context 'when attributes are not valid' do
         let(:params) { { article_id: article.id, comment: attributes_for(:comment, content: '') } }
-        it { expect(call_request.status).to eq 200 }
-        it { expect(call_request).to render_template :new }
+        it { expect(call_request.status).to eq 302 }
+        it { expect(call_request).to redirect_to article }
         it 'does not create a comment' do
           expect { call_request }.to change(Comment, :count).by(0)
         end
