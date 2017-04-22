@@ -41,13 +41,13 @@ User.find_each do |user|
   end
 end
 
-puts "\nAvatars"
-User.find_each do |user|
-  if rand(1..5).odd?
-    user.update_attributes(avatar: FFaker::Avatar.image)
-    print '#'
-  else
-    print '.'
-  end
-end
+# puts "\nAvatars"
+# User.find_each do |user|
+#   if rand(1..5).odd?
+#     user.update_attributes(avatar: FFaker::Avatar.image)
+#     print '#'
+#   else
+#     print '.'
+#   end
+# end
 puts "\ndone"
