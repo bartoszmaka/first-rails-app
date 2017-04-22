@@ -1,10 +1,4 @@
 .well style='background-color: #dddddd'
-  h4 Comment
-  = form_for ([article, comment]) do |f|
-    - if comment.errors.any?
-      = render 'form_errors'
-    .form-group
-      = f.text_area :content, class: 'form-control', rows: '3', placeholder: 'What do you think?'
-    .form-group
-      = f.submit 'Comment!', class: 'btn btn-primary'
-
+  = simple_form_for [article, comment] do |f|
+    = f.input :content, input_html: { rows: 3 }, placeholder: 'What do you think?', label: false
+    = f.button :submit

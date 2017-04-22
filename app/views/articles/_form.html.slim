@@ -1,16 +1,6 @@
-.row
-  .col-sm-8.col-sm-offset-2
-    = form_for article do |f|
-      - if article.errors.any?
-        = render 'form_errors'
-      .form-group
-        = f.label :title, class: 'control-label'
-        = f.text_field :title, class: 'form-control'
-      .form-group
-        = f.label :tags, class: 'control-label'
-        = f.text_field :separated_tags, class: 'form-control', placeholder: 'tags, separated, by, comma'
-      .form-group
-        = f.label :content, class: 'control-label'
-        = f.text_area :content, class: 'form-control', rows: '3', placeholder: "What's on Your mind?"
-      .form-group
-        = f.submit 'Post!', class: 'btn btn-primary'
+.row.col-sm-8.col-sm-offset-2
+  = simple_form_for article do |f|
+    = f.input :title
+    = f.input :separated_tags
+    = f.input :content, input_html: { rows: 3 }
+    = f.button :submit
