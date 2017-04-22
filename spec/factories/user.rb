@@ -6,6 +6,10 @@ FactoryGirl.define do
     password '123123'
     password_confirmation { password }
 
+    before(:create) do |user|
+      user.skip_confirmation!
+    end
+
     trait :with_avatar do
       avatar { FFaker::Avatar.image }
     end
