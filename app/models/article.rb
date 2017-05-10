@@ -1,7 +1,8 @@
 class Article < ApplicationRecord
   include Votable
   belongs_to :user, counter_cache: true
-  has_many :comments, dependent: :destroy
+  has_many :replies, class_name: 'Comment', dependent: :destroy
+  has_many :comments, -> { where("depth = 0") }, dependent: :destroy
   has_many :article_tags, dependent: :destroy
   has_many :tags, through: :article_tags
 
