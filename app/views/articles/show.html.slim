@@ -34,7 +34,7 @@
       hr style='margin: 5px 0px 5px 0px'
       = render 'articles/article_tags', article: article, smaller: true
   p.lead
-    = article.content
+    = article.decorated_content
 
 = render 'comments/form'
 = render 'comments/listed_comments'
