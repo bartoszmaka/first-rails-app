@@ -22,7 +22,7 @@ class ArticlesController < ApplicationController
   def create
     article.user = current_user
     if article.save
-      article.separated_tags = params[:article][:separated_tags]
+      FetchTags.run(article: article)
       flash[:success] = 'Article succesfully created'
       redirect_to article
     else
@@ -38,9 +38,8 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    # binding.pry
     if article.update(article_params)
-      article.separated_tags = params[:article][:separated_tags]
+      FetchTags.run(article: article)
       flash[:success] = 'Article succesfully updated'
       redirect_to article
     else
