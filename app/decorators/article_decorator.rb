@@ -12,6 +12,11 @@ class ArticleDecorator < Draper::Decorator
 
   def decorate_tag(name)
     tag = Tag.find_by name: name
-    h.link_to(name, tag)
+    h.link_to(name, safe_tag_path(tag))
+  end
+
+  def safe_tag_path(tag)
+    # redirects to root path if tag somehow does not exist
+    tag.nil? ? h.root_path : h.tag_path(tag)
   end
 end
