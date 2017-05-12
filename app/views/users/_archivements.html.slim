@@ -1,12 +1,9 @@
   h4: small archivements:
   .row
-    - @user.archivements.each do |archivement|
-      .col-sm-6
-        .row
-          .media
-            .col-sm-3
-              = image_tag archivement.icon.url(:thumb)
-            .col-sm-9
-              .media-body
-                h5 = archivement.name
+    - user.archivements.each do |archivement|
+      .col-sm-6: .row: .media
+        .col-sm-3
+          = image_tag archivement.icon.url(:thumb)
+        .col-sm-9: .media-body
+          h5 = archivement.name
 

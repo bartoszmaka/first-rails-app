@@ -1,8 +1,4 @@
 - if article.tags.any?
-  .row
-    .col-sm-12
-      - article.tags.each do |tag|
-        - if defined?(smaller)&& smaller == true
-          = link_to tag.name, tag_path(tag), class: 'btn btn-success btn-sm'
-        - else
-          = link_to tag.name, tag_path(tag), class: 'btn btn-default'
+  .row: .col-sm-12
+    - article.tags.each do |tag|
+      = link_to tag.name, tag_path(tag), class: 'btn btn-success btn-sm'

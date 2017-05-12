@@ -21,7 +21,6 @@ class CommentsController < ApplicationController
       redirect_to article_path(article)
     else
       redirect_to article
-      # render 'new'
     end
   end
 

@@ -23,10 +23,4 @@ class Vote < ApplicationRecord
   def update_votable_score_for_vote_delete
     positive == true ? votable.decrement!(:score) : votable.increment!(:score)
   end
-
-  # def swapvote
-  #   old_value = positive
-  #   update_attribute :positive, !old_value
-  #   old_value == true ? votable.decrement!(:score, 2) : votable.increment!(:score, 2)
-  # end
 end

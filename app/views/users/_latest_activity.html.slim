@@ -1,9 +1,9 @@
 .well style='background-color: #cccccc'
   h4 Latest activity
-  - if @latest_activity.empty?
+  - if latest_activity.empty?
     p You have no activity! come on, write something
   - else
-    - @latest_activity[0...5].each do |resource|
+    - latest_activity[0...5].each do |resource|
       - if resource.is_a? Comment
         h4: small Comment | Article title:
         =< link_to truncate(resource.article.title, length: 60, separator: ' '), article_path(resource.article)

@@ -1,5 +1,4 @@
 class ArticlesController < ApplicationController
-  include ArticlesHelper
   expose(:q) { Article.ransack(params[:q]) }
   expose(:comments_query) { article.comments.ransack(params[:q]) }
   expose(:comments) { comments_query.result }

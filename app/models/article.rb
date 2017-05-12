@@ -16,19 +16,4 @@ class Article < ApplicationRecord
   def author
     user.name
   end
-
-  def separated_tags
-    tags_names = []
-    tags.each { |tag| tags_names << tag.name }
-    tags_names.join(', ')
-  end
-
-  def separated_tags=(string)
-    return nil if string.nil? || string.match?(/[^a-z0-9 ,]/i)
-    tags.destroy_all
-    string.strip.split(', ').each do |tag_name|
-      t = Tag.find_or_create_by(name: tag_name)
-      ArticleTag.find_or_create_by(article_id: id, tag_id: t.id) unless t.nil?
-    end
-  end
 end
