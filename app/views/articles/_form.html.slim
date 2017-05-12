@@ -1,6 +1,5 @@
 .row.col-sm-8.col-sm-offset-2
   = simple_form_for article do |f|
     = f.input :title
-    = f.input :separated_tags
     = f.input :content, input_html: { rows: 3 }
     = f.button :submit
