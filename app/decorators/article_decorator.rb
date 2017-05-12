@@ -11,7 +11,7 @@ class ArticleDecorator < Draper::Decorator
   end
 
   def decorate_tag(name)
-    tag = Tag.find_by name: name
+    tag = Tag.find_by name: name.delete('#')
     h.link_to(name, safe_tag_path(tag))
   end
 
