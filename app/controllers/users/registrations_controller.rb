@@ -11,7 +11,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     super
-    @user.skip_confirmation!
+    @user.confirm
   end
 
   # GET /resource/edit
