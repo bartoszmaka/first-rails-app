@@ -10,19 +10,26 @@ class User < ApplicationRecord
   has_many :comments_voted_on, through: :votes, source: :votable, source_type: 'Comment'
   has_and_belongs_to_many :roles, join_table: :user_roles
   has_many :user_archivements
-  has_many :archivements, through: :user_archivements
+  has_many :archivements, through: :user_archivements, dependent: :destroy
 
   has_attached_file :avatar,
                     styles: { medium: '300x300>', thumb: '100x100' },
                     default_url: 'avatars/missing.png'
 
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+
   before_create { self.name = name_from_email if name.nil? }
+  before_save { self.email = email.downcase }
+  validates_attachment_content_type :avatar, content_type: %r{\Aimage\/.*\z}
+  validates :email, presence: true,
+                    length: { maximum: 255 },
+                    format: { with: VALID_EMAIL_REGEX },
+                    uniqueness: { case_sensitive: false }
 
   def after_confirmation
     archivements << Archivement.find_or_create_by(name: 'Blogger')
   end
 
-  validates_attachment_content_type :avatar, content_type: %r{\Aimage\/.*\z}
 
   def recent_resources(time)
     recent = []
