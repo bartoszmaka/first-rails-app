@@ -19,6 +19,7 @@ class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   before_create { self.name = name_from_email if name.nil? }
+  before_create { self.skip_confirmation! }
   before_save { self.email = email.downcase }
   validates_attachment_content_type :avatar, content_type: %r{\Aimage\/.*\z}
   validates :email, presence: true,
@@ -29,7 +30,6 @@ class User < ApplicationRecord
   def after_confirmation
     archivements << Archivement.find_or_create_by(name: 'Blogger')
   end
-
 
   def recent_resources(time)
     recent = []
