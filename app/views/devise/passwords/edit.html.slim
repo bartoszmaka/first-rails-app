@@ -1,8 +1,7 @@
 - provide :header, 'Register'
 .row: .col-xs-10.col-xs-offset-1.col-md-7.col-md-offset-4: .well style='padding-bottom: 5px;': .row
   .col-xs-12.col-md-8
-    p feature temporary disabled
-    / = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+    = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
       = f.input :reset_password_token, as: :hidden
       = f.input :password, autofocus: true, autocomplete: 'off'
       = f.input :password_confirmation, autocomplete: 'off'

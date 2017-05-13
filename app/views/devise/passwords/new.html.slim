@@ -1,7 +1,8 @@
 - provide :header, 'Reset Password'
 .row: .col-xs-10.col-xs-offset-1.col-md-7.col-md-offset-4: .well style='padding-bottom: 5px;': .row
   .col-xs-12.col-md-8
-    = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+    p feature temporary disabled
+    / = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
       = f.input :email, autofocus: true
       = f.button :submit,  'Reset my password', class: 'btn btn-danger btn-lg btn-block'
 
