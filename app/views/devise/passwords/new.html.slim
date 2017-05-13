@@ -2,8 +2,8 @@
 .row: .col-xs-10.col-xs-offset-1.col-md-7.col-md-offset-4: .well style='padding-bottom: 5px;': .row
   .col-xs-12.col-md-8
     = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-      = f.input :email, autofocus: true, class: 'form-control'
-      = f.button :submit,  'Send me reset password instructions', class: 'btn btn-danger btn-lg btn-block'
+      = f.input :email, autofocus: true
+      = f.button :submit,  'Reset my password', class: 'btn btn-danger btn-lg btn-block'
 
   .col-md-4.col-md-offset-0.col-xs-8.col-xs-offset-2: .form-group
       = render "devise/shared/links"
